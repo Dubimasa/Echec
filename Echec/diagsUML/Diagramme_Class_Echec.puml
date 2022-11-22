@@ -1,7 +1,54 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-class ArrayList {
+
+Package view{
+    interface EchecObserver
+    {
+        update(Echec echec)
+    }
+    class EchecWindow implements EchecObserver
+    {
+     +EchecWindow()
+     +Game_start()
+     +Game_finish()
+    }
+
 }
+Package Controller
+{
+    class Facade
+    {
+        -String player1
+        -String player2
+
+    }
+}
+Package model
+{
+    class Echec {
+
+    }
+    Interface pieceFactory
+    {
+    }
+    class piece
+    {
+        int[,] position
+        +getcolor()
+    }
+    class Pion extends piece
+    class Cavalier extends piece
+    class Fou extends piece
+    class Tour extends piece
+    class Dame extends piece
+    class Roi extends piece
+    Enum Color
+    {
+        WHITE
+        BLACK
+    }
+}
+piece *--> "1\n- color" Color : > A pour couleur
 
 @enduml
