@@ -5,13 +5,14 @@
 Package view{
     interface EchecObserver
     {
-        update(Echec echec)
+        +updatePiece(echec Echec, piece)
+        +capturePiece(Echec (echec Echec,piece)
     }
     class EchecWindow implements EchecObserver
     {
      +EchecWindow()
-     +Game_start()
-     +Game_finish()
+     +gameStart()
+     +GgmeFinish()
     }
 
 }
@@ -21,34 +22,68 @@ Package Controller
     {
         -String player1
         -String player2
-
     }
 }
 Package model
 {
     class Echec {
 
+    -pieceSelectione : Piece
+    -echequier : Piece[]
+    +FintourJoueur(color Color)
+    +mouvement(position int[])
+    -verifEchec(color Color) : echec Boolean
+    -verifEchecMath(color Color) : echec Boolean
     }
     Interface pieceFactory
     {
+        +PieceFactory()
+        +createPion() : piece Piece
+        +createCavalier() : piece Piece
+        +createFou() : piece Piece
+        +createTour() : piece Piece
+        +createDame() : piece Piece
+        +createRoi() : piece Piece
     }
-    class piece
+    class Piece
     {
-        int[,] position
+        +mouvementPossibles List<int[]>
         +getcolor()
+        +capturePiece()
+        +CalculmouvementPossible(piece Piece)
     }
-    class Pion extends piece
-    class Cavalier extends piece
-    class Fou extends piece
-    class Tour extends piece
-    class Dame extends piece
-    class Roi extends piece
+    class Pion extends Piece
+    {
+        +{static}Pion()
+        +promotion()
+    }
+    class Cavalier extends Piece
+    {
+    +{static}Cavalier()
+    }
+    class Fou extends Piece
+    {
+    +{static}Fou()
+    }
+    class Tour extends Piece
+    {
+    +{static}Tour()
+    }
+    class Dame extends Piece
+    {
+    +{static}Dame()
+    }
+    class Roi extends Piece
+    {
+    +{static}Roi()
+    }
     Enum Color
     {
         WHITE
         BLACK
     }
 }
-piece *--> "1\n- color" Color : > A pour couleur
+
+Piece *--> "1\n- color" Color : > A pour couleur
 
 @enduml
