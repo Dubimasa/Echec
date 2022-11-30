@@ -1,4 +1,4 @@
 package model;
 
-public class Dame {
+public class Dame extends Piece {
 }

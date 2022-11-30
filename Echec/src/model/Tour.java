@@ -1,4 +1,4 @@
 package model;
 
-public class Tour {
+public class Tour extends Piece{
 }
