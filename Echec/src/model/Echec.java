@@ -1,4 +1,4 @@
 package model;
 
-public class Echec {
+public class Echec extends Piece{
 }

@@ -1,4 +1,4 @@
 package model;
 
-public class Roi {
+public class Roi extends Piece{
 }
