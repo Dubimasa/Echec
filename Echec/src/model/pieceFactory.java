@@ -1,7 +1,7 @@
 package model;
 
 public class pieceFactory{
-    
+
     public Piece createCavalier(){
         return new Cavalier();
     }
