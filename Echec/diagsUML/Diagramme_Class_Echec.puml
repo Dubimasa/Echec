@@ -30,7 +30,6 @@ Package model
     class Echec {
 
     -pieceSelectione : Piece
-    -echequier : Piece[]
     +FintourJoueur(color Color)
     +mouvement(position int[])
     -verifEchec(color Color) : echec Boolean
@@ -46,37 +45,43 @@ Package model
         +createDame() : piece Piece
         +createRoi() : piece Piece
     }
-    class Piece
+    abstract class Piece
     {
         +mouvementPossibles List<int[]>
         +getcolor()
         +capturePiece()
-        +CalculmouvementPossible(piece Piece)
+        +CalculmouvementPossible(piece Piece, Echecquier Piece[]) : Piece[]
     }
     class Pion extends Piece
     {
-        +{static}Pion()
+        +{static}Pion(color Color)
         +promotion()
+        +CalculmouvementPossible(piece Piece, Echecquier Piece[]) : Piece[]
     }
     class Cavalier extends Piece
     {
-    +{static}Cavalier()
+    +{static}Cavalier(color Color)
+    +CalculmouvementPossible(piece Piece, Echecquier Piece[]) : Piece[]
     }
     class Fou extends Piece
     {
-    +{static}Fou()
+    +{static}Fou(color Color)
+    +CalculmouvementPossible(piece Piece, Echecquier Piece[]) : Piece[]
     }
     class Tour extends Piece
     {
-    +{static}Tour()
+    +{static}Tour(color Color)
+    +CalculmouvementPossible(piece Piece, Echecquier Piece[]) : Piece[]
     }
     class Dame extends Piece
     {
-    +{static}Dame()
+    +{static}Dame(color Color)
+    +CalculmouvementPossible(piece Piece, Echecquier Piece[]) : Piece[]
     }
     class Roi extends Piece
     {
-    +{static}Roi()
+    +{static}Roi(color Color)
+    +CalculmouvementPossible(piece Piece, Echecquier Piece[]) : Piece[]
     }
     Enum Color
     {
@@ -86,11 +91,12 @@ Package model
 }
 
 Piece *--> "1\n- color" Color : > A pour couleur
-Echec *--> "16" Piece : > Contient
+Echec *--> "-64" Piece : > A besoin
+Echec *-----> "-1" Piece : > Selectionnez
 
 Echec ..> pieceFactory : > <<use>>
 
-pieceFactory ..> Piece : > <<use>>
+pieceFactory ...> Piece : > <<use>>
 pieceFactory ..> Roi : > <<use>>
 pieceFactory ..> Pion : > <<use>>
 pieceFactory ..> Cavalier : > <<use>>
