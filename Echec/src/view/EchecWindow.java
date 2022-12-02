@@ -1,12 +1,13 @@
 package view;
 
 import Controller.Facade;
-import model.Echec;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Color;
 
 public class EchecWindow extends JFrame implements EchecObserver{
     private static JButton[][] Echecquier = new JButton[8][8];
@@ -28,12 +29,9 @@ public class EchecWindow extends JFrame implements EchecObserver{
             {
                 color = !color;
                 temp = new JButton();
-                int finalX = x;
-                int finalY = y;
 
                 temp.addActionListener(actionEvent -> {
-                    System.out.println("X = " + finalX +" Y = " + finalY);
-                    //temp.setBackground(Color.green);
+                    JButton button = (JButton) actionEvent.getSource();
                 });
                 temp.setBackground(Color.WHITE);
                 if(color == false)
@@ -49,13 +47,40 @@ public class EchecWindow extends JFrame implements EchecObserver{
         setLayout(new GridLayout(1, 1));
         add(Affiche);
         setVisible(true);
+
         System.out.println("Nom = " + Echecquier[3][3].getText());
-        Echecquier[3][3] = new JButton("Touché");
+        Echecquier[3][3].setText("Touché");
         System.out.println("Nom = " + Echecquier[3][3].getText());
+
+
+
     }
 
     @Override
-    public void update(Echec echec) {
+    public void updateMouvementPossible(Echec echec) {
+
+    }
+
+    @Override
+    public void updateMouvement(Echec echec) {
+        Piece[][] echecEchecquier = echec.getEchecquier();
+        for(int x = 0; x<8;x++)
+        {
+            for (int y =0; y<8; y++)
+            {
+                Piece temp = echecEchecquier[x][y];
+                if(temp != null)
+                {
+                    Echecquier[x][y].setText(temp.getClass().getName());
+                    System.out.println(temp.getClass().getName());
+                }
+
+            }
+        }
+    }
+
+    @Override
+    public void updateEchec(Echec echec) {
 
     }
 }

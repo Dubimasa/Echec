@@ -8,8 +8,8 @@ public class Facade {
     {
         echec = echec1;
     }
-    public void lancerPartie()
+    public void CreationPartie()
     {
-
+        echec.creationPartie();
     }
 }

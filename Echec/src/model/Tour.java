@@ -2,8 +2,8 @@ package model;
 
 public class Tour extends Piece{
 
-    public Tour(Color color1)
+    public Tour(Couleur couleur1)
     {
-        super(color1);
+        super(couleur1);
     }
 }

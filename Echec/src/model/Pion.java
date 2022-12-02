@@ -1,8 +1,8 @@
 package model;
 
 public class Pion extends Piece {
-    public Pion(Color color1)
+    public Pion(Couleur couleur1)
     {
-        super(color1);
+        super(couleur1);
     }
 }

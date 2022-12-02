@@ -1,9 +1,9 @@
 package model;
 
 public class Cavalier extends Piece {;
-    public Cavalier(Color color1)
+    public Cavalier(Couleur couleur1)
     {
-        super(color1);
+        super(couleur1);
 
     }
 }

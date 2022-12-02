@@ -1,8 +1,8 @@
 package model;
 
 public class Dame extends Piece {
-    public Dame(Color color1)
+    public Dame(Couleur couleur1)
     {
-        super(color1);
+        super(couleur1);
     }
 }

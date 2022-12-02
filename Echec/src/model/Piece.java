@@ -1,10 +1,10 @@
 package model;
 
 public class Piece {
-    static Color color;
-    public Piece(Color color1)
+    static Couleur couleur;
+    public Piece(Couleur couleur1)
     {
-        color = color1;
+        couleur = couleur1;
     }
 
 }

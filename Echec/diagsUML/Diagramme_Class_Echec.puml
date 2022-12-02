@@ -30,8 +30,8 @@ Package model
     class Echec {
     +FintourJoueur(color Color)
     +mouvement(position int[])
-    -verifEchec(color Color) : echec Boolean
-    -verifEchecMath(color Color) : echec Boolean
+    -verifEchec(color Color) : Boolean
+    -verifEchecMath(color Color) :Boolean
     }
     Interface pieceFactory
     {
@@ -45,7 +45,7 @@ Package model
     }
     abstract class Piece
     {
-        +mouvementPossibles List<int[]>
+        +mouvementPossibles Integer[]
         +getcolor()
         +capturePiece()
         +CalculmouvementPossible(piece Piece, Echecquier Piece[]) : Piece[]
@@ -93,6 +93,7 @@ Echec *--> "-64" Piece : > A besoin
 Echec *-----> "-1" Piece : > Selectionnez
 
 Echec ..> pieceFactory : > <<use>>
+Echec ..> Color : > <<use>>//////
 
 pieceFactory ...> Piece : > <<use>>
 pieceFactory ..> Roi : > <<use>>
@@ -107,5 +108,6 @@ EchecObserver <--o Echec : > Consult
 Facade --> Echec : > Manipule
 Facade ..> EchecWindow : > Selectionne
 EchecWindow --> Facade : > Transmet_Demandes
+
 
 @enduml

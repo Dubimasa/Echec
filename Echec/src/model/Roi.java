@@ -1,9 +1,9 @@
 package model;
 
 public class Roi extends Piece{
-    public Roi(Color color1)
+    public Roi(Couleur couleur1)
     {
-        super(color1);
-        color = color1;
+        super(couleur1);
+        couleur = couleur1;
     }
 }
