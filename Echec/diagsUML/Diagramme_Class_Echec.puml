@@ -2,21 +2,7 @@
 'https://plantuml.com/class-diagram
 
 
-Package view{
-    interface EchecObserver
-    {
-        +updateMouvementPossible()
-        +updateMouvement()
-        +updateEchec()
-    }
-    class EchecWindow implements EchecObserver
-    {
-     +EchecWindow()
-     +gameStart()
-     +GgmeFinish()
-    }
 
-}
 Package Controller
 {
     class Facade
@@ -27,13 +13,20 @@ Package Controller
 }
 Package model
 {
+    interface EchecObserver
+    {
+            +updateMouvementPossible()
+            +updateMouvement()
+            +updateEchec()
+    }
+
     class Echec {
     +FintourJoueur(color Color)
-    +mouvement(position int[])
+    +mouvement(position Integer[])
     -verifEchec(color Color) : echec Boolean
     -verifEchecMath(color Color) : echec Boolean
     }
-    Interface pieceFactory
+    class pieceFactory
     {
         +PieceFactory()
         +createPion() : piece Piece
@@ -45,7 +38,7 @@ Package model
     }
     abstract class Piece
     {
-        +mouvementPossibles List<int[]>
+        +mouvementPossibles Integer[]
         +getcolor()
         +capturePiece()
     }
@@ -54,32 +47,32 @@ Package model
         -boolean tour1
         +{static}Pion(color Color)
         +promotion()
-        +CalculmouvementPossible(echec Echec) : int[][]
+        +CalculmouvementPossible(echec Echec) : Integer[][]
     }
     class Cavalier extends Piece
     {
     +{static}Cavalier(color Color)
-    +CalculmouvementPossible(echec Echec) : int[][]
+    +CalculmouvementPossible(echec Echec) : Integer[]
     }
     class Fou extends Piece
     {
     +{static}Fou(color Color)
-    +CalculmouvementPossible(echec Echec) : int[][]
+    +CalculmouvementPossible(echec Echec) : Integer[]
     }
     class Tour extends Piece
     {
     +{static}Tour(color Color)
-    +CalculmouvementPossible(echec Echec) : int[][]
+    +CalculmouvementPossible(echec Echec) : Integer[]
     }
     class Dame extends Piece
     {
     +{static}Dame(color Color)
-    +CalculmouvementPossible(echec Echec) : int[][]
+    +CalculmouvementPossible(echec Echec) : Integer[]
     }
     class Roi extends Piece
     {
     +{static}Roi(color Color)
-    +CalculmouvementPossible(echec Echec) : int[][]
+    +CalculmouvementPossible(echec Echec) : Integer[]
     }
     Enum Color
     {
@@ -87,10 +80,18 @@ Package model
         BLACK
     }
 }
+Package view{
 
+    class EchecWindow implements EchecObserver
+    {
+     +EchecWindow()
+     +gameStart()
+     +GameFinish()
+    }
+
+}
 Piece *--> "1\n- color" Color : > A pour couleur
 Echec *--> "-64" Piece : > A besoin
-Echec *-----> "-1" Piece : > Selectionnez
 
 Echec ..> pieceFactory : > <<use>>
 
