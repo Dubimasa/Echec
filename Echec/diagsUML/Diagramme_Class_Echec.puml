@@ -5,9 +5,9 @@
 Package view{
     interface EchecObserver
     {
-        +updatePiece(echec Echec, piece)
-        +capturePiece(Echec (echec Echec,piece)
-        +debutTour(color Boolean)
+        +updateMouvementPossible()
+        +updateMouvement()
+        +updateEchec()
     }
     class EchecWindow implements EchecObserver
     {
@@ -28,8 +28,6 @@ Package Controller
 Package model
 {
     class Echec {
-
-    -pieceSelectione : Piece
     +FintourJoueur(color Color)
     +mouvement(position int[])
     -verifEchec(color Color) : echec Boolean

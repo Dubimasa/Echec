@@ -1,13 +1,14 @@
 package view;
 
 import Controller.Facade;
+import model.Echec;
 
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.*;
 
-public class EchecWindow extends JFrame{
+public class EchecWindow extends JFrame implements EchecObserver{
     private static JButton[][] Echecquier = new JButton[8][8];
     private JPanel Affiche;
 
@@ -51,5 +52,10 @@ public class EchecWindow extends JFrame{
         System.out.println("Nom = " + Echecquier[3][3].getText());
         Echecquier[3][3] = new JButton("Touché");
         System.out.println("Nom = " + Echecquier[3][3].getText());
+    }
+
+    @Override
+    public void update(Echec echec) {
+
     }
 }
