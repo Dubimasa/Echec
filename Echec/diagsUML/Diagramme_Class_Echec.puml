@@ -48,38 +48,38 @@ Package model
         +mouvementPossibles List<int[]>
         +getcolor()
         +capturePiece()
-        +CalculmouvementPossible(piece Piece, Echecquier Piece[]) : Piece[]
     }
     class Pion extends Piece
     {
+        -boolean tour1
         +{static}Pion(color Color)
         +promotion()
-        +CalculmouvementPossible(piece Piece, Echecquier Piece[]) : Piece[]
+        +CalculmouvementPossible(echec Echec) : int[][]
     }
     class Cavalier extends Piece
     {
     +{static}Cavalier(color Color)
-    +CalculmouvementPossible(piece Piece, Echecquier Piece[]) : Piece[]
+    +CalculmouvementPossible(echec Echec) : int[][]
     }
     class Fou extends Piece
     {
     +{static}Fou(color Color)
-    +CalculmouvementPossible(piece Piece, Echecquier Piece[]) : Piece[]
+    +CalculmouvementPossible(echec Echec) : int[][]
     }
     class Tour extends Piece
     {
     +{static}Tour(color Color)
-    +CalculmouvementPossible(piece Piece, Echecquier Piece[]) : Piece[]
+    +CalculmouvementPossible(echec Echec) : int[][]
     }
     class Dame extends Piece
     {
     +{static}Dame(color Color)
-    +CalculmouvementPossible(piece Piece, Echecquier Piece[]) : Piece[]
+    +CalculmouvementPossible(echec Echec) : int[][]
     }
     class Roi extends Piece
     {
     +{static}Roi(color Color)
-    +CalculmouvementPossible(piece Piece, Echecquier Piece[]) : Piece[]
+    +CalculmouvementPossible(echec Echec) : int[][]
     }
     Enum Color
     {
