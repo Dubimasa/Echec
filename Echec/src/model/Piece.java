@@ -1,10 +1,12 @@
 package model;
 
 public class Piece {
-    static Couleur couleur;
-    public Piece(Couleur couleur1)
+    private int[][]  mouvements= new int[8][8];
+
+    static Color color;
+    public Piece(Color color1)
     {
-        couleur = couleur1;
+        color = color1;
     }
 
 }
