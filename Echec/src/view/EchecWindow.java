@@ -70,7 +70,7 @@ public class EchecWindow extends JFrame implements EchecObserver{
             for (int y =0; y<8; y++)
             {
                 Piece temp = echecEchecquier[x][y];
-                if(temp != null)
+                /*if(temp != null)
                 {
                     Echecquier[x][y].setText(temp.getClass().getSimpleName() + temp.getColor());
                     Image image = null;
@@ -82,7 +82,7 @@ public class EchecWindow extends JFrame implements EchecObserver{
                     }
                     ImageIcon icone = new ImageIcon(image);
                     Echecquier[x][y].setIcon(icone);
-                }
+                }*/
 
             }
         }
