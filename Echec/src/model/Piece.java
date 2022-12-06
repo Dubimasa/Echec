@@ -10,4 +10,7 @@ public class Piece {
         color = color1;
     }
 
+    public static Couleur getColor() {
+        return color;
+    }
 }

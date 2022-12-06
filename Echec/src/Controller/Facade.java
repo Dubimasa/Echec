@@ -12,4 +12,8 @@ public class Facade {
     {
         echec.creationPartie();
     }
+    public void pieceSelectionne(int x, int y)
+    {
+        echec.calculMouvementPossible(x,y);
+    }
 }

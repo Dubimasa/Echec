@@ -26,6 +26,7 @@ Package model
     -verifEchecMath(color Color) : Boolean
     +setPiece(piece Piece x int y int)
     +creationPartie()
+    +calculMouvementPossible(x int y int)
     }
     class pieceFactory
     {

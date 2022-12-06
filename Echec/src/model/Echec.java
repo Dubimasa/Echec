@@ -44,6 +44,11 @@ public class Echec{
 
         //tour
         temp = pieceFactory.createTour(Couleur.Black);
-        setPiece(temp,0,7);
+        setPiece(temp,0,0);
+        setPiece(temp,7,0);
+    }
+    public void calculMouvementPossible(int x,int y)
+    {
+
     }
 }
