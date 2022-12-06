@@ -3,7 +3,7 @@ package model;
 public class Pion extends Piece {
     private boolean tour1; //Boolean qui vérifie si c'est le tour 1 ou non
 
-    public Pion(Color color1)
+    public Pion(Couleur color1)
     {
         super(color1);
     }

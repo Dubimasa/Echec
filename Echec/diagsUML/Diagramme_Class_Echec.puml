@@ -2,7 +2,6 @@
 'https://plantuml.com/class-diagram
 
 
-
 Package Controller
 {
     class Facade
@@ -23,8 +22,10 @@ Package model
     class Echec {
     +FintourJoueur(color Color)
     +mouvement(position Integer[])
-    -verifEchec(color Color) : echec Boolean
-    -verifEchecMath(color Color) : echec Boolean
+    -verifEchec(color Color) : Boolean
+    -verifEchecMath(color Color) : Boolean
+    +setPiece(piece Piece x int y int)
+    +creationPartie()
     }
     class pieceFactory
     {
@@ -39,7 +40,7 @@ Package model
     abstract class Piece
     {
         +mouvementPossibles Integer[]
-        +getcolor()
+        +getColor()
         +capturePiece()
     }
     class Pion extends Piece
