@@ -74,16 +74,14 @@ public class EchecWindow extends JFrame implements EchecObserver{
                 {
                     Echecquier[x][y].setText(temp.getClass().getSimpleName() + temp.getColor());
                     Image image = null;
-                    /*try {
-                        //image = ImageIO.read(new File("..s/../../Images/Tour_noir.png"));
+                    try {
+                        //image = ImageIO.read(new File("../../images/Tour_noir.png"));
                         image = ImageIO.read(new File("Tour_noir.png"));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                     ImageIcon icone = new ImageIcon(image);
                     Echecquier[x][y].setIcon(icone);
-
-                     */
                 }
 
             }
