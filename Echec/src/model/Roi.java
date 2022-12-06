@@ -4,7 +4,6 @@ public class Roi extends Piece{
     public Roi(Couleur couleur1)
     {
         super(couleur1);
-        couleur = couleur1;
     }
 
     //Méthode initialisant tous les mouvements possibles
