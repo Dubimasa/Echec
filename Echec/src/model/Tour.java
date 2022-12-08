@@ -8,7 +8,7 @@ public class Tour extends Piece{
     }
 
     //Méthode initialisant tous les mouvements possibles
-    public int[][] CalculmouvementPossible(Echec echec){
+    public int[][] calculmouvementPossible(Echec echec){
         int[][]  mouvements= new int[8][8];
         mouvements[0][0]=1;
 

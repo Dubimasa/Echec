@@ -15,5 +15,5 @@ public abstract class Piece {
     public Couleur getColor() {
         return color;
     }
-    public abstract int[][] CalculmouvementPossible(Echec echec);
+    public abstract int[][] calculmouvementPossible(Echec echec);
 }
