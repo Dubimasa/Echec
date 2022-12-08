@@ -41,7 +41,7 @@ public class EchecWindow extends JFrame implements EchecObserver{
                 temp.setBackground(Color.WHITE);
                 if(color == false)
                 {
-                    temp.setBackground(new Color(94,128,15));
+                    temp.setBackground(new Color(53, 75, 1));
                 }
 
                 Echecquier[x][y] = temp;
@@ -65,6 +65,7 @@ public class EchecWindow extends JFrame implements EchecObserver{
     @Override
     public void updateMouvement(Echec echec) {
         Piece[][] echecEchecquier = echec.getEchecquier();
+        System.out.println();
         for(int x = 0; x<8;x++)
         {
             for (int y =0; y<8; y++)
@@ -73,15 +74,17 @@ public class EchecWindow extends JFrame implements EchecObserver{
                 if(temp != null)
                 {
                     Echecquier[x][y].setText(temp.getClass().getSimpleName() + temp.getColor());
-                    Image image = null;
+                    /*Image image = null;
                     try {
-                        //image = ImageIO.read(new File("..s/../../Images/Tour_noir.png"));
-                        image = ImageIO.read(new File("Tour_noir.png"));
+                        image = ImageIO.read(new File("$PROJECT_DIR$" +"images/Tour_noir.png"));
+                        //image = ImageIO.read(new File("Tour_noir.png"));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                     ImageIcon icone = new ImageIcon(image);
-                    Echecquier[x][y].setIcon(icone);
+                     */
+                    Icon icon = new ImageIcon("images/Tour_Blanc.png");
+                    Echecquier[x][y].setIcon(icon);
                 }
 
             }

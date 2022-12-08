@@ -4,6 +4,8 @@ import model.*;
 
 public class Facade {
     private Echec echec;
+    private String player1;
+    private String player2;
     public Facade(Echec echec1)
     {
         echec = echec1;
@@ -12,8 +14,9 @@ public class Facade {
     {
         echec.creationPartie();
     }
-    public void pieceSelectionne(int x, int y)
+    public Boolean[] pieceSelectionneMouvement(int x, int y)
     {
         echec.calculMouvementPossible(x,y);
+
     }
 }
