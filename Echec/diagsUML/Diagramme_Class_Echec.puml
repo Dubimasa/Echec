@@ -28,7 +28,7 @@ Package model
     -verifEchecMath(color Color) : Boolean
     +setPiece(piece Piece x Integer y Integer)
     +creationPartie()
-    +calculMouvementPossible(x Integer y Integer) : Boolean[]
+    +calculmouvementPossible(x Integer y Integer) : Boolean[]
     }
     class pieceFactory
     {
@@ -51,32 +51,32 @@ Package model
         -boolean tour1
         +{static}Pion(color Color)
         +promotion()
-        +CalculmouvementPossible(echec Echec) : Integer[]
+        +calculmouvementPossible(echec Echec) : Integer[]
     }
     class Cavalier extends Piece
     {
     +{static}Cavalier(color Color)
-    +CalculmouvementPossible(echec Echec) : Integer[]
+    +calculmouvementPossible(echec Echec) : Integer[]
     }
     class Fou extends Piece
     {
     +{static}Fou(color Color)
-    +CalculmouvementPossible(echec Echec) : Integer[]
+    +calculmouvementPossible(echec Echec) : Integer[]
     }
     class Tour extends Piece
     {
     +{static}Tour(color Color)
-    +CalculmouvementPossible(echec Echec) : Integer[]
+    +calculmouvementPossible(echec Echec) : Integer[]
     }
     class Dame extends Piece
     {
     +{static}Dame(color Color)
-    +CalculmouvementPossible(echec Echec) : Integer[]
+    +calculmouvementPossible(echec Echec) : Integer[]
     }
     class Roi extends Piece
     {
     +{static}Roi(color Color)
-    +CalculmouvementPossible(echec Echec) : Integer[]
+    +calculmouvementPossible(echec Echec) : Integer[]
     }
     Enum Color
     {
