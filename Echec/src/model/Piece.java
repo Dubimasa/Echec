@@ -6,13 +6,13 @@ public abstract class Piece {
     private int x;
     private int y;
 
-    static Couleur color;
+    private Couleur color;
     public Piece(Couleur color1)
     {
         color = color1;
     }
 
-    public static Couleur getColor() {
+    public Couleur getColor() {
         return color;
     }
     public abstract int[][] CalculmouvementPossible(Echec echec);
