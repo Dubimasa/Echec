@@ -1,6 +1,5 @@
 package model;
 
-import view.EchecObserver;
 
 import java.util.ArrayList;
 

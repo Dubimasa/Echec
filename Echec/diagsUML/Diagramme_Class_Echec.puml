@@ -8,6 +8,7 @@ Package Controller
     {
         -String player1
         -String player2
+        +pieceSelectionneMouvement(x Integer,y Integer) : Boolean[]
     }
 }
 Package model
