@@ -3,28 +3,24 @@ package view;
 import Controller.Facade;
 import model.*;
 
-import javax.annotation.processing.Generated;
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Color;
-import java.io.File;
-import java.io.IOException;
 
 public class EchecWindow extends JFrame implements EchecObserver{
-    private static JButton[][] Echecquier = new JButton[8][8];
+    private static Button_piece[][] Echecquier = new Button_piece[8][8];
     private JPanel Affiche;
+    private Facade facade;
 
-    public EchecWindow()
+    public EchecWindow(Facade facade1)
     {
+        facade = facade1;
         setTitle("Echec");
         setSize(600, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         Affiche = new JPanel();
         Affiche.setLayout( new GridLayout(8,8));
-        JButton temp;
+        Button_piece temp;
         Boolean color = false;
         for(int y = 0; y<8; y++)
         {
@@ -32,11 +28,12 @@ public class EchecWindow extends JFrame implements EchecObserver{
             for(int x =0; x<8;x++)
             {
                 color = !color;
-                temp = new JButton();
+                temp = new Button_piece(x,y);
 
                 temp.addActionListener(actionEvent -> {
-                    JButton button = (JButton) actionEvent.getSource();
-                    System.out.println(button.getText());
+                    Button_piece button = (Button_piece) actionEvent.getSource();
+                    facade.pieceSelectionneMouvement(button.recupx(), button.recupy());
+                    System.out.println(button.getText() + " " + button.recupx() + " " + button.recupy());
                 });
                 temp.setBackground(Color.WHITE);
                 if(color == false)

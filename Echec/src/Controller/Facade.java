@@ -6,11 +6,13 @@ public class Facade {
     private Echec echec;
     private String player1;
     private String player2;
+    private Piece pieceSelectionee;
     public Facade(Echec echec1)
     {
         echec = echec1;
+        pieceSelectionee = null;
     }
-    public void CreationPartie()
+    public void creationPartie()
     {
         echec.creationPartie();
     }
