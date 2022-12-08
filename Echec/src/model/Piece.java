@@ -1,7 +1,7 @@
 package model;
 
 
-public class Piece {
+public abstract class Piece {
     private int[][]  mouvements= new int[8][8];
 
     static Couleur color;
@@ -13,4 +13,5 @@ public class Piece {
     public static Couleur getColor() {
         return color;
     }
+    public abstract int[][] CalculmouvementPossible(Echec echec);
 }

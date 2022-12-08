@@ -9,6 +9,7 @@ Package Controller
         -String player1
         -String player2
         +pieceSelectionneMouvement(x Integer,y Integer) : Boolean[]
+        +CreationPartie()
     }
 }
 Package model
@@ -21,13 +22,13 @@ Package model
     }
 
     class Echec {
-    +FintourJoueur(color Color)
+    +FintourJoueur()
     +mouvement(position Integer[])
     -verifEchec(color Color) : Boolean
     -verifEchecMath(color Color) : Boolean
-    +setPiece(piece Piece x int y int)
+    +setPiece(piece Piece x Integer y Integer)
     +creationPartie()
-    +calculMouvementPossible(x int y int)
+    +calculMouvementPossible(x Integer y Integer) : Boolean[]
     }
     class pieceFactory
     {
@@ -50,7 +51,7 @@ Package model
         -boolean tour1
         +{static}Pion(color Color)
         +promotion()
-        +CalculmouvementPossible(echec Echec) : Integer[][]
+        +CalculmouvementPossible(echec Echec) : Integer[]
     }
     class Cavalier extends Piece
     {

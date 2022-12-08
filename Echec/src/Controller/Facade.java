@@ -17,6 +17,7 @@ public class Facade {
     public Boolean[] pieceSelectionneMouvement(int x, int y)
     {
         echec.calculMouvementPossible(x,y);
-
+        Boolean[] result = new Boolean[8];
+        return result;
     }
 }

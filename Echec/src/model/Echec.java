@@ -1,14 +1,16 @@
 package model;
 
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Echec{
     private static Piece[][] echecquier = new Piece[8][8];
     private static ArrayList<EchecObserver> observers = new ArrayList<>();
+    private static Couleur couleur;
     public void Echec()
     {
-
+        couleur = couleur.White;
     }
     public void addObserveur(EchecObserver echecObserver)
     {
@@ -46,8 +48,28 @@ public class Echec{
         setPiece(temp,0,0);
         setPiece(temp,7,0);
     }
-    public void calculMouvementPossible(int x,int y)
+    public Boolean[][] calculMouvementPossible(int x,int y)
     {
-
+        Boolean[][] result = new Boolean[8][8];
+        return result;
+    }
+    public void FintourJoueur()
+    {
+        if(couleur == Couleur.White)
+        {
+            couleur = Couleur.Black;
+        }
+        else
+        {
+            couleur = Couleur.White;
+        }
+    }
+    public Boolean verifEchec()
+    {
+        return true;
+    }
+    public Boolean verifEchecMath()
+    {
+        return true;
     }
 }
