@@ -9,7 +9,12 @@ public class Fou extends Piece{
     //Méthode initialisant tous les mouvements possibles
     public int[][] calculmouvementPossible(Echec echec){
         int[][]  mouvements= new int[8][8];
-        mouvements[0][0]=1;
+        for(int i=1; i<7; i++){
+            mouvements[i][i]=1;
+            mouvements[i][-i]=1;
+            mouvements[-i][i]=1;
+            mouvements[-i][-i]=1;
+        }
 
         return mouvements;
     }
