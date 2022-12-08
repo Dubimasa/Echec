@@ -16,10 +16,20 @@ public class Facade {
     {
         echec.creationPartie();
     }
-    public Boolean[] pieceSelectionneMouvement(int x, int y)
+    public void pieceSelectionneMouvement(int x, int y)
     {
-        echec.calculMouvementPossible(x,y);
-        Boolean[] result = new Boolean[8];
-        return result;
+        Piece temp = echec.getPiece(x,y);
+        if(temp == null || temp.getColor() != echec.getCouleur())
+        {
+            if(pieceSelectionee != null)
+            {
+                echec.mouvement(x,y);
+            }
+        }
+        else
+        {
+            pieceSelectionee = temp;
+            echec.calculMouvementPossible(x,y);
+        }
     }
 }

@@ -13,6 +13,11 @@ public class Echec{
     {
         couleur = couleur.White;
     }
+
+    public static Couleur getCouleur() {
+        return couleur;
+    }
+
     public void addObserveur(EchecObserver echecObserver)
     {
         observers.add(echecObserver);
@@ -37,6 +42,10 @@ public class Echec{
             System.out.println(e);
         }
 
+    }
+    public Piece getPiece(int x, int y)
+    {
+        return echecquier[x][y];
     }
     public void creationPartie()
     {
@@ -89,6 +98,10 @@ public class Echec{
     {
         Boolean[][] result = new Boolean[8][8];
         return result;
+    }
+    public Boolean mouvement(int x, int y)
+    {
+        return true;
     }
     public void FintourJoueur()
     {
