@@ -7,19 +7,44 @@ public class Dame extends Piece {
     }
 
     //Méthode initialisant tous les mouvements possibles
-    public int[][] calculmouvementPossible(Echec echec){
-        int[][]  mouvements= new int[8][8];
-        for(int i=1; i<7; i++){
-            mouvements[i][i]=1;
-            mouvements[i][-i]=1;
-            mouvements[-i][i]=1;
-            mouvements[-i][-i]=1;
+    public Map< class="hljs-built_in">int, int[]> calculmouvementPossible(Echec echec){
+        Map< class="hljs-built_in">int, int[]> mouvements = new HashMap<int, int[]>();
 
-            mouvements[i][0]=1;
-            mouvements[0][i]=1;
-            mouvements[-i][0]=1;
-            mouvements[0][-i]=1;
+        int compteur=0;
+        for(int i=1; i<7; i++){
+            int[] moove1 = {i, i};
+            mouvements.put(compteur, moove1);
+            compteur++;
+
+            int[] moove2 = {i, -i};
+            mouvements.put(compteur, moove2);
+            compteur++;
+
+            int[] moove3 = {-i, i};
+            mouvements.put(compteur, moove3);
+            compteur++;
+
+            int[] moove4 = {-i, -i};
+            mouvements.put(compteur, moove4);
+             compteur++;
+
+             int[] moove5 = {i, 0};
+            mouvements.put(compteur, moove5);
+            compteur++;
+
+            int[] moove6 = {-i, 0};
+            mouvements.put(compteur, moove6);
+            compteur++;
+
+            int[] moove7 = {0, i};
+            mouvements.put(compteur, moove7);
+            compteur++;
+
+            int[] moove8 = {0, -i};
+            mouvements.put(compteur, moove8);
+            compteur++;
         }
+
 
         return mouvements;
     }

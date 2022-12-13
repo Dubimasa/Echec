@@ -8,13 +8,26 @@ public class Tour extends Piece{
     }
 
     //Méthode initialisant tous les mouvements possibles
-    public int[][] calculmouvementPossible(Echec echec){
-        int[][]  mouvements= new int[8][8];
+    public Map< class="hljs-built_in">int, int[]> calculmouvementPossible(Echec echec){
+        Map< class="hljs-built_in">int, int[]> mouvements = new HashMap<int, int[]>();
+
+        int compteur=0;
         for(int i=1; i<7; i++){
-            mouvements[i][0]=1;
-            mouvements[0][i]=1;
-            mouvements[-i][0]=1;
-            mouvements[0][-i]=1;
+            int[] moove1 = {i, 0};
+            mouvements.put(compteur, moove1);
+            compteur++;
+
+            int[] moove2 = {-i, 0};
+            mouvements.put(compteur, moove2);
+            compteur++;
+
+            int[] moove3 = {0, i};
+            mouvements.put(compteur, moove3);
+            compteur++;
+
+            int[] moove4 = {0, -i};
+            mouvements.put(compteur, moove4);
+            compteur++;
         }
 
         return mouvements;

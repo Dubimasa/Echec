@@ -2,7 +2,7 @@ package model;
 
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Echec{
     private static Piece[][] echecquier = new Piece[8][8];
