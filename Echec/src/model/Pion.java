@@ -1,5 +1,8 @@
 package model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Pion extends Piece {
     private boolean tour1; //Boolean qui vérifie si c'est le tour 1 ou non
 
@@ -9,8 +12,8 @@ public class Pion extends Piece {
     }
 
     //Méthode initialisant tous les mouvements possibles
-    public Map< class="hljs-built_in">int, int[]> calculmouvementPossible(Echec echec){
-        Map< class="hljs-built_in">int, int[]> mouvements = new HashMap<int, int[]>();
+    public Map<Integer, int[]> calculmouvementPossible(Echec echec){
+        Map<Integer, int[]> mouvements = new HashMap<Integer, int[]>();
 
         int[] moove1 = {0, 1};
         mouvements.put(0, moove1);
@@ -22,13 +25,12 @@ public class Pion extends Piece {
 
         //Vérifie si ennemi dans le coin au dessus à droite du pion puis le coin gauche
         if(true){
-            int moove3 = {1, 1};
+            int[] moove3 = {1, 1};
             mouvements.put(2, moove3);
         }
         if (true){
-            int moove3 = {1, 1};
+            int[] moove3 = {1, 1};
             mouvements.put(2, moove3);
-            mouvements[-1][1]=4;
         }
 
         return mouvements;

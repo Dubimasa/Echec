@@ -1,7 +1,7 @@
 package model;
 
 
-import java.util.Dictionary;
+import java.util.*;
 
 public abstract class Piece {
     private int[][]  mouvements= new int[8][8];
@@ -17,5 +17,5 @@ public abstract class Piece {
     public Couleur getColor() {
         return color;
     }
-    public abstract int[][] calculmouvementPossible(Echec echec);
+    public abstract Map<Integer, int[]> calculmouvementPossible(Echec echec);
 }

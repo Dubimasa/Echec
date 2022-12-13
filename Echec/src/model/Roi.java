@@ -1,5 +1,8 @@
 package model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Roi extends Piece{
     public Roi(Couleur couleur1)
     {
@@ -7,9 +10,9 @@ public class Roi extends Piece{
     }
 
     //Méthode initialisant tous les mouvements possibles
-    public Map< class="hljs-built_in">int, int[]> calculmouvementPossible(Echec echec){
-        Map< class="hljs-built_in">int, int[]> mouvements = new HashMap<int, int[]>();
-
+    public Map<Integer, int[]> calculmouvementPossible(Echec echec){
+        Map<Integer, int[]> mouvements = new HashMap<Integer, int[]>();
+        int compteur = 0;
         int[] moove1 = {1, 0};
         mouvements.put(compteur, moove1);
         compteur++;
