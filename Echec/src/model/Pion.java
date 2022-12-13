@@ -9,19 +9,25 @@ public class Pion extends Piece {
     }
 
     //Méthode initialisant tous les mouvements possibles
-    public int[][] calculmouvementPossible(Echec echec){
-        int[][]  mouvements= new int[8][8];
-        mouvements[0][1]=1;
+    public Map< class="hljs-built_in">int, int[]> calculmouvementPossible(Echec echec){
+        Map< class="hljs-built_in">int, int[]> mouvements = new HashMap<int, int[]>();
+
+        int[] moove1 = {0, 1};
+        mouvements.put(0, moove1);
 
         if (this.tour1){
-            mouvements[0][2]=2;
+            int[] moove2 = {0, 2};
+            mouvements.put(1, moove2);
         }
 
-        //Vérifie si ennemi dans le coin au dessus à droite du piont puis le coin gauche
+        //Vérifie si ennemi dans le coin au dessus à droite du pion puis le coin gauche
         if(true){
-            mouvements[1][1]=3;
+            int moove3 = {1, 1};
+            mouvements.put(2, moove3);
         }
         if (true){
+            int moove3 = {1, 1};
+            mouvements.put(2, moove3);
             mouvements[-1][1]=4;
         }
 
