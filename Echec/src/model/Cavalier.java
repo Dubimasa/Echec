@@ -19,6 +19,8 @@ public class Cavalier extends Piece {;
         mouvements[-1][2]=7;
         mouvements[-1][-2]=8;
 
+        Source: https://prograide.com/pregunta/26098/comment-creer-un-dictionnaire-en-java
+
         return mouvements;
     }
 }

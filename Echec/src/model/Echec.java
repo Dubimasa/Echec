@@ -28,6 +28,12 @@ public class Echec{
             echecObserver.updateMouvement(this);
         }
     }
+    private void updateMouvementPossible(Boolean[][] envoie)
+    {
+        for (EchecObserver echecObserver: observers) {
+            echecObserver.updateMouvementPossible(envoie);
+        }
+    }
     public Piece[][] getEchecquier() {
         return echecquier;
     }
@@ -97,6 +103,7 @@ public class Echec{
     public Boolean[][] calculMouvementPossible(int x,int y)
     {
         Boolean[][] result = new Boolean[8][8];
+
         return result;
     }
     public Boolean mouvement(int x, int y)
