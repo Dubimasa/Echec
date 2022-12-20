@@ -19,7 +19,10 @@ public class EchecWindow extends JFrame implements EchecObserver{
         setSize(600, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        setLayout(new GridLayout(1, 1));
+        setLayout(new GridLayout(2, 1));
+
+        JLabel currentPlayer = new JLabel("Tour du joueur :  ");
+
         AfficherEchequier();
         Avant_Partie();
         add(FicheStart);
@@ -29,9 +32,15 @@ public class EchecWindow extends JFrame implements EchecObserver{
     }
     private void Avant_Partie()
     {
+        facade = facade1;
+        setTitle("Echec");
+        setSize(600, 600);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+
         FicheStart = new JPanel();
         FicheStart.setBackground(Color.LIGHT_GRAY);
-        FicheStart.setLayout(new BoxLayout(FicheStart,BoxLayout.Y_AXIS));
+        FicheStart.setLayout(new GridLayout(6, 1));
 
         JLabel player1 = new JLabel("Nom du premier joueur : ");
         FicheStart.add(player1);
