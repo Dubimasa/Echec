@@ -22,7 +22,7 @@ public class EchecWindow extends JFrame implements EchecObserver{
         setLayout(new GridLayout(1, 1));
         AfficherEchequier();
         Avant_Partie();
-        add(FicheStart);
+        add(FicheJeu);
         setVisible(true);
 
 
@@ -55,7 +55,7 @@ public class EchecWindow extends JFrame implements EchecObserver{
                 temp.addActionListener(actionEvent -> {
                     Button_piece button = (Button_piece) actionEvent.getSource();
                     facade.pieceSelectionneMouvement(button.recupx(), button.recupy());
-                    System.out.println(button.getText() + " " + button.recupx() + " " + button.recupy());
+                    //System.out.println(button.getText() + " " + button.recupx() + " " + button.recupy());
                 });
                 temp.setBackground(Color.WHITE);
                 if(!color)

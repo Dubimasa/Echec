@@ -7,14 +7,14 @@ import java.util.*;
 public class Echec{
     private static Piece[][] echecquier = new Piece[8][8];
     private static ArrayList<EchecObserver> observers = new ArrayList<>();
-    private static Couleur couleur;
+    private Couleur couleur;
     private static PieceFactory pieceFactory = new PieceFactory();
-    public void Echec()
+    public Echec()
     {
-        couleur = couleur.White;
+        couleur = Couleur.White;
     }
 
-    public static Couleur getCouleur() {
+    public Couleur getCouleur() {
         return couleur;
     }
 
@@ -103,6 +103,9 @@ public class Echec{
     public Boolean[][] calculMouvementPossible(int x,int y)
     {
         Boolean[][] result = new Boolean[8][8];
+        Piece pieceSelectionne = echecquier[x][y];
+
+        System.out.println("La classe sélectionné est :" + pieceSelectionne.getClass().getSimpleName());
 
         return result;
     }

@@ -19,6 +19,7 @@ public class Facade {
     public void pieceSelectionneMouvement(int x, int y)
     {
         Piece temp = echec.getPiece(x,y);
+        System.out.println(temp.getClass().getSimpleName()+ " " + temp.getColor() +" " + echec.getCouleur());
         if(temp == null || temp.getColor() != echec.getCouleur())
         {
             if(pieceSelectionee != null)
