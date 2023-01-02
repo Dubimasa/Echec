@@ -24,13 +24,13 @@ public class EchecWindow extends JFrame implements EchecObserver{
         JLabel currentPlayer = new JLabel("Tour du joueur :  ");
 
         AfficherEchequier();
-        Avant_Partie();
+        //Avant_Partie();
         add(FicheJeu);
         setVisible(true);
 
 
     }
-    private void Avant_Partie()
+    /*private void Avant_Partie()
     {
         facade = facade1;
         setTitle("Echec");
@@ -58,6 +58,7 @@ public class EchecWindow extends JFrame implements EchecObserver{
         JButton start = new JButton();
         FicheStart.add(start);
     }
+    */
     private void AfficherEchequier()
     {
         FicheJeu = new JPanel();
