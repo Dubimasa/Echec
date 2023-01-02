@@ -28,18 +28,17 @@ public class Pion extends Piece {
         }
         
         //Vérifie si ennemi dans le coin au dessus à droite du pion
-        if(searchPieceDifferentColor(x+1, y+1*switch_color)){
+        if(searchPieceDifferentColorNotNull(x+1, y+1*switch_color)){
             int[] moove3 = {1, 1*switch_color};
             mouvements.put(2, moove3);
         }
         //Vérifie si ennemi dans le coin au dessus  à gauche
-        if (searchPieceDifferentColor(x-1, y+1*switch_color)){
+        if (searchPieceDifferentColorNotNull(x-1, y+1*switch_color)){
             int[] moove4 = {-1, 1*switch_color};
             mouvements.put(3, moove4);
         }
         
         return mouvements;
     }
-
-
+    
 }

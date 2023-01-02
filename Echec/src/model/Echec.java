@@ -112,8 +112,8 @@ public class Echec{
         }
 
         //Test
-        temp = pieceFactory.createPion(Couleur.White,this);
-        setPiece(temp, 4, 2);
+        temp = pieceFactory.createTour(Couleur.White,this);
+        setPiece(temp, 4, 4);
     }
     public Boolean[][] calculMouvementPossible(int x,int y)
     {
