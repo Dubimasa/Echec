@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Dame extends Piece {
-    public Dame(Couleur couleur1)
+    public Dame(Couleur couleur1,Echec echec1)
     {
-        super(couleur1);
+        super(couleur1,echec1);
     }
 
     //Méthode initialisant tous les mouvements possibles
-    public Map<Integer, int[]> calculmouvementPossible(Echec echec){
+    public Map<Integer, int[]> calculmouvementPossible(){
         Map<Integer, int[]> mouvements = new HashMap<Integer, int[]>();
 
         int compteur=0;

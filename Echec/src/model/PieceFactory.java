@@ -2,27 +2,27 @@ package model;
 
 public class PieceFactory {
 
-    public Piece createCavalier(Couleur couleur){
-        return new Cavalier(couleur);
+    public Piece createCavalier(Couleur couleur,Echec echec){
+        return new Cavalier(couleur,echec);
     }
 
-    public Piece createDame(Couleur couleur) {
-        return new Dame(couleur);
+    public Piece createDame(Couleur couleur,Echec echec) {
+        return new Dame(couleur,echec);
     }
 
-    public Piece createTour(Couleur couleur){
-        return new Tour(couleur);
+    public Piece createTour(Couleur couleur,Echec echec){
+        return new Tour(couleur,echec);
     }
 
-    public Piece createFou(Couleur couleur){
-        return new Fou(couleur);
+    public Piece createFou(Couleur couleur,Echec echec){
+        return new Fou(couleur,echec);
     }
 
-    public Piece createPion(Couleur couleur){
-        return new Pion(couleur);
+    public Piece createPion(Couleur couleur,Echec echec){
+        return new Pion(couleur,echec);
     }
 
-    public Piece createRoi(Couleur couleur){
-        return new Roi(couleur);
+    public Piece createRoi(Couleur couleur,Echec echec){
+        return new Roi(couleur,echec);
     }
 }

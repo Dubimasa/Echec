@@ -55,7 +55,7 @@ public class EchecWindow extends JFrame implements EchecObserver{
                 temp.addActionListener(actionEvent -> {
                     Button_piece button = (Button_piece) actionEvent.getSource();
                     facade.pieceSelectionneMouvement(button.recupx(), button.recupy());
-                    //System.out.println(button.getText() + " " + button.recupx() + " " + button.recupy());
+                    
                 });
                 temp.setBackground(Color.WHITE);
                 if(!color)
@@ -94,7 +94,7 @@ public class EchecWindow extends JFrame implements EchecObserver{
         {
             //JPanel tempAffiche = new JPanel();
             for(int x =0; x<8;x++) {
-                System.out.println(mouvementPossible[x][y]);
+                //System.out.println(mouvementPossible[x][y]);
                 if(mouvementPossible[x][y] != null && mouvementPossible[x][y])
                 {
                     Echecquier[x][y].setBackground(Color.GREEN);

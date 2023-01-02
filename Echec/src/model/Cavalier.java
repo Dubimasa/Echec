@@ -2,14 +2,14 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 public class Cavalier extends Piece {;
-    public Cavalier(Couleur couleur1)
+    public Cavalier(Couleur couleur1,Echec echec1)
     {
-        super(couleur1);
+        super(couleur1,echec1);
 
     }
 
     //Méthode initialisant tous les mouvements possibles
-    public Map<Integer, int[]> calculmouvementPossible(Echec echec){
+    public Map<Integer, int[]> calculmouvementPossible(){
         Map<Integer, int[]> mouvements = new HashMap<Integer, int[]>();
 
         int[] moove1 = {2, 1};
@@ -36,7 +36,7 @@ public class Cavalier extends Piece {;
         int[] moove8 = {-1, -2};
         mouvements.put(7, moove8);
 
-        Source: https://prograide.com/pregunta/26098/comment-creer-un-dictionnaire-en-java
+        //Source: https://prograide.com/pregunta/26098/comment-creer-un-dictionnaire-en-java
 
         return mouvements;
     }

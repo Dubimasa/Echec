@@ -5,13 +5,13 @@ import java.util.Map;
 
 public class Tour extends Piece{
 
-    public Tour(Couleur couleur1)
+    public Tour(Couleur couleur1,Echec echec1)
     {
-        super(couleur1);
+        super(couleur1,echec1);
     }
 
     //Méthode initialisant tous les mouvements possibles
-    public Map<Integer, int[]> calculmouvementPossible(Echec echec){
+    public Map<Integer, int[]> calculmouvementPossible(){
         Map<Integer, int[]> mouvements = new HashMap<Integer, int[]>();
 
         int compteur=0;

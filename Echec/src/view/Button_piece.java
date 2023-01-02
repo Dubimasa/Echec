@@ -1,6 +1,5 @@
 package view;
 
-import model.Piece;
 
 import javax.swing.*;
 
