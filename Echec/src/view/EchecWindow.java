@@ -19,7 +19,10 @@ public class EchecWindow extends JFrame implements EchecObserver{
         setSize(600, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        setLayout(new GridLayout(1, 1));
+        setLayout(new GridLayout(2, 1));
+
+        JLabel currentPlayer = new JLabel("Tour du joueur :  ");
+
         AfficherEchequier();
         Avant_Partie();
         add(FicheJeu);
@@ -29,14 +32,31 @@ public class EchecWindow extends JFrame implements EchecObserver{
     }
     private void Avant_Partie()
     {
+        facade = facade1;
+        setTitle("Echec");
+        setSize(600, 600);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+
         FicheStart = new JPanel();
         FicheStart.setBackground(Color.LIGHT_GRAY);
-        FicheStart.setLayout(new BoxLayout(FicheStart,BoxLayout.Y_AXIS));
-        JLabel texte = new JLabel("Mon texte");
-        FicheStart.add(texte);
-        JLabel texte2 = new JLabel("Mon autre texte");
-        FicheStart.add(texte2);
+        FicheStart.setLayout(new GridLayout(6, 1));
 
+        JLabel player1 = new JLabel("Nom du premier joueur : ");
+        FicheStart.add(player1);
+        JTextField pseudo1 = new JTextField (" Joueur 1 ");
+        FicheStart.add(pseudo2);
+
+        JLabel player2 = new JLabel("Nom du second joueur : ");
+        FicheStart.add(player2);
+        JTextField pseudo2 = new JTextField (" Joueur 2 ");
+        FicheStart.add(pseudo2);
+
+        JCheckBox choixcolor = new JCheckBox("Le joueur 1 a les blancs");
+        FicheStart.add(choixcolor);
+
+        JButton start = new JButton();
+        FicheStart.add(start);
     }
     private void AfficherEchequier()
     {
