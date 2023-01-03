@@ -4,15 +4,16 @@ import model.*;
 
 public class Facade {
     private Echec echec;
-    private Joueur player1;
-    private Joueur player2;
+    private Joueur playerWhite;
+    private Joueur playerBlack;
     private Piece pieceSelectionee;
+    private Boolean[][] mouvementPossible = new Boolean[8][8];
     public Facade(Echec echec1,Joueur initplayer1, Joueur initplayer2)
     {
         echec = echec1;
         pieceSelectionee = null;
-        player1 = initplayer1;
-        player2 = initplayer2;
+        playerWhite = initplayer1;
+        playerBlack = initplayer2;
     }
     public void creationPartie()
     {
@@ -29,16 +30,19 @@ public class Facade {
             if(pieceSelectionee != null)
             {
                 //System.out.println(pieceSelectionee.getClass().getSimpleName()+ " " + pieceSelectionee.getColor() +" " + echec.getCouleur());
-                if(echec.mouvement(pieceSelectionee.getX(),pieceSelectionee.getY(),x,y))
+                if(mouvementPossible[x][y] != null )
                 {
+                    echec.mouvement(pieceSelectionee.getX(),pieceSelectionee.getY(),x,y);        
                     pieceSelectionee = null;
+                    mouvementPossible = new Boolean[8][8];
+                    
                 }
             }
         }
         else
         {
             pieceSelectionee = temp;
-            echec.calculMouvementPossible(x,y);
+            mouvementPossible = echec.calculMouvementPossible(x,y);
         }
     }
 }

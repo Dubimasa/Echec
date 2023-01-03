@@ -7,12 +7,12 @@ import model.Couleur;
 
 public class Main {
     public static void main(String[] args) {
-        Joueur player1 =  new Joueur();
-        player1.setColor(Couleur.White);
-        Joueur player2 =  new Joueur();
-        player2.setColor(Couleur.Black);
-        Echec echec = new Echec(player1,player2);
-        Facade facade = new Facade(echec,player1,player2);
+        Joueur playerWhite =  new Joueur();
+        playerWhite.setColor(Couleur.White);
+        Joueur playerBlack =  new Joueur();
+        playerBlack.setColor(Couleur.Black);
+        Echec echec = new Echec(playerWhite,playerBlack);
+        Facade facade = new Facade(echec,playerWhite,playerBlack);
         EchecWindow affiche = new EchecWindow(facade);
         echec.addObserveur(affiche);
         facade.creationPartie();

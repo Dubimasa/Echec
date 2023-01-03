@@ -8,17 +8,17 @@ import javax.xml.crypto.dsig.keyinfo.KeyValue;
 
 public class Echec{
     private static Piece[][] echecquier = new Piece[8][8];
-    private Boolean[][] mouvementPossible = new Boolean[8][8];
+    
     private static ArrayList<EchecObserver> observers = new ArrayList<>();
     private Couleur couleur;
     private static PieceFactory pieceFactory = new PieceFactory();
-    private Joueur player1;
-    private Joueur player2;
+    private Joueur playerWhite;
+    private Joueur playerBlack;
     public Echec(Joueur initPlayer1, Joueur initPlayer2)
     {
         couleur = Couleur.White;
-        player1 = initPlayer1;
-        player2 = initPlayer2;
+        playerWhite = initPlayer1;
+        playerBlack = initPlayer2;
     }
 
     public Couleur getCouleur() {
@@ -66,6 +66,7 @@ public class Echec{
     public void creationPartie()
     {
         Piece temp;
+        echecquier = new Piece[8][8];
 
         //tour
         temp = pieceFactory.createTour(Couleur.Black,this);
@@ -118,7 +119,7 @@ public class Echec{
     }
     public Boolean[][] calculMouvementPossible(int x,int y)
     {
-        mouvementPossible = new Boolean[8][8];
+        Boolean[][] mouvementPossible = new Boolean[8][8];
         Piece pieceSelectionne = getPiece(x, y);
         
         System.out.println("La classe sélectionné est :" + pieceSelectionne.getClass().getSimpleName() + " La couleur est : "
@@ -137,27 +138,21 @@ public class Echec{
         updateMouvementPossible(mouvementPossible);
         return mouvementPossible;
     }
-    public Boolean mouvement(int pieceSelectionex, int pieceSelectioney, int newEmplacementx, int newEmplacementy)
+    public void mouvement(int pieceSelectionex, int pieceSelectioney, int newEmplacementx, int newEmplacementy)
     {
-        if(mouvementPossible[newEmplacementx][newEmplacementy] != null )
-        {
-            //Changer l'échequier
-            echecquier[pieceSelectionex][pieceSelectioney].setXY(newEmplacementx, newEmplacementy);
-            echecquier[pieceSelectionex][pieceSelectioney].setNot_play(false);
-            echecquier[newEmplacementx][newEmplacementy] = echecquier[pieceSelectionex][pieceSelectioney];
-            echecquier[pieceSelectionex][pieceSelectioney] = null;
-            //Changer l'affichage de l'échequier
-            mouvementPossible = new Boolean[8][8];
-            updateMouvement();
-            FintourJoueur();
-            return true;
-        }
-        return false;
+        //Changer l'échequier
+        echecquier[pieceSelectionex][pieceSelectioney].setXY(newEmplacementx, newEmplacementy);
+        echecquier[pieceSelectionex][pieceSelectioney].setNot_play(false);
+        echecquier[newEmplacementx][newEmplacementy] = echecquier[pieceSelectionex][pieceSelectioney];
+        echecquier[pieceSelectionex][pieceSelectioney] = null;
+        //Changer l'affichage de l'échequier
+        updateMouvement();
+        FintourJoueur();
     }
     public void FintourJoueur()
     {
         //Detection d'échec
-        if(verifEchec())
+        if(verifEchec(echecquier,couleur))
         {
             if(verifEchecMath())
             {
@@ -176,8 +171,9 @@ public class Echec{
             }
         }
     }
-    public Boolean verifEchec()
+    public Boolean verifEchec(Piece[][] tempEchequier, Couleur couleur)
     {
+        
         return false;
     }
     public Boolean verifEchecMath()
