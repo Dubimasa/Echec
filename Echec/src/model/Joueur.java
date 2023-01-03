@@ -9,7 +9,7 @@ public class Joueur {
     protected String nom;
     protected int score;
     protected Couleur color;
-    protected Roi roi;
+    protected Piece roi;
 
     public Joueur()
     {
@@ -34,10 +34,10 @@ public class Joueur {
     }
 
     public int getScore(){ return score;}
-    public Roi getRoi() {
+    public Piece getRoi() {
         return roi;
     }
-    public void setRoi(Roi roi) {
+    public void setRoi(Piece roi) {
         this.roi = roi;
     }
 }

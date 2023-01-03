@@ -32,13 +32,19 @@ public class Echec{
     private void updateMouvement()
     {
         for (EchecObserver echecObserver: observers) {
-            echecObserver.updateMouvement(this);
+            echecObserver.updateMouvement(echecquier);
         }
     }
     private void updateMouvementPossible(Boolean[][] envoie)
     {
         for (EchecObserver echecObserver: observers) {
             echecObserver.updateMouvementPossible(envoie);
+        }
+    }
+    private void updateEchec(int roix, int roiy, int attaquantx , int attaquanty)
+    {
+        for (EchecObserver echecObserver: observers) {
+            echecObserver.updateEchec(roix,roiy,attaquantx,attaquanty);
         }
     }
     public Piece[][] getEchecquier() {
@@ -62,6 +68,18 @@ public class Echec{
     {
         Piece temp = echecquier[x][y];
         return temp;
+    }
+    private Piece[][] dupliqueEchequier(Piece[][] tempEchequier)
+    {
+        Piece[][] dupli = new Piece[8][8];
+        for(int i =0; i<8 ; i++)
+        {
+            for(int j=0 ; j<8 ; j++)
+            {
+                dupli[i][j] = tempEchequier[i][j];
+            }
+        }
+        return dupli;
     }
     public void creationPartie()
     {
@@ -103,8 +121,10 @@ public class Echec{
         //Roi
         temp = pieceFactory.createRoi(Couleur.Black,this);
         setPiece(temp,3,0);
+        playerBlack.setRoi(temp);
         temp = pieceFactory.createRoi(Couleur.White,this);
         setPiece(temp,4,7);
+        playerWhite.setRoi(temp);
         //Pion
         for(int i = 0; i<8 ; i++)
         {
@@ -117,25 +137,62 @@ public class Echec{
             setPiece(temp,i,6);
         }
     }
-    public Boolean[][] calculMouvementPossible(int x,int y)
+    public Boolean[][] mouvementPossible(int x,int y)
+    {
+        Boolean[][] mouvementPossible;
+        mouvementPossible = calculMouvementPossible(echecquier,x, y,true);
+        updateMouvementPossible(mouvementPossible);
+        return mouvementPossible;
+    }
+    private Boolean[][] calculMouvementPossible(Piece[][] tempEchequier,int x,int y,boolean pieceMouvement)
     {
         Boolean[][] mouvementPossible = new Boolean[8][8];
         Piece pieceSelectionne = getPiece(x, y);
         
-        System.out.println("La classe sélectionné est :" + pieceSelectionne.getClass().getSimpleName() + " La couleur est : "
-         + pieceSelectionne.getColor() + " et la position est " + x+" "+ y);
+        //System.out.println("La classe sélectionné est :" + pieceSelectionne.getClass().getSimpleName() + " La couleur est : "
+        // + pieceSelectionne.getColor() + " et la position est " + x+" "+ y);
         
-        Map<Integer, int[]> mouvements = pieceSelectionne.calculmouvementPossible();
-        System.out.println("Les mouvement sont :");
+        Map<Integer, int[]> mouvements = pieceSelectionne.calculmouvementPossible(tempEchequier);
+        //System.out.println("Les mouvement sont :");
         for(int[] value : mouvements.values())
         {
-            System.out.println(value[0] + " " + value[1]);
-            
+            //System.out.println(value[0] + " " + value[1]);
+            if(pieceMouvement)
+            {
             //Ajouter un verifEchec
-
-            mouvementPossible[x+value[0]][y+value[1]] = true;
+                try
+                {
+                    Piece[][] dupliEchequier = dupliqueEchequier(tempEchequier);
+                    Piece clonePieceSelectionne = (Piece) pieceSelectionne.clonee();
+                    clonePieceSelectionne.setXY(x+value[0], y+value[1]);
+                    dupliEchequier[x+value[0]][y+value[1]] = clonePieceSelectionne;
+                    dupliEchequier[x][y] = null;
+                    Couleur inverseCouleur;
+                    if(couleur == Couleur.White)
+                    {
+                        inverseCouleur = Couleur.Black;
+                    }
+                    else
+                    {
+                        inverseCouleur = Couleur.White;
+                    }
+                    if(!(verifEchec(dupliEchequier, inverseCouleur)))
+                    {
+                        mouvementPossible[x+value[0]][y+value[1]] = true;
+                    }
+                }
+                catch(Exception e)
+                {
+                    System.out.println("Personne n'est censé me voir et si c'est le cas mon créateur pue");
+                }
+                
+            }
+            else
+            {
+                mouvementPossible[x+value[0]][y+value[1]] = true;
+            }
         }
-        updateMouvementPossible(mouvementPossible);
+        
         return mouvementPossible;
     }
     public void mouvement(int pieceSelectionex, int pieceSelectioney, int newEmplacementx, int newEmplacementy)
@@ -154,30 +211,80 @@ public class Echec{
         //Detection d'échec
         if(verifEchec(echecquier,couleur))
         {
+            System.out.println("ECHEC");
             if(verifEchecMath())
             {
                 //Win du joueur actuel
             }
         }
-        else //Tour suivant
+        //Tour suivant
+        if(couleur == Couleur.White)
         {
-            if(couleur == Couleur.White)
-            {
-                couleur = Couleur.Black;
-            }
-            else
-            {
-                couleur = Couleur.White;
-            }
+            couleur = Couleur.Black;
+        }
+        else
+        {
+            couleur = Couleur.White;
         }
     }
     public Boolean verifEchec(Piece[][] tempEchequier, Couleur couleur)
     {
+        //Piece forcément remplacé par le double for en dessous
+        Piece roiAdverse = tempEchequier[0][0];
+        boolean arretChercheRoi = true;
+        for(int roii =0; roii<8 && arretChercheRoi; roii++)
+        {
+            for(int roij=0 ; roij<8 && arretChercheRoi; roij++)
+            {
+                Piece temporaire = tempEchequier[roii][roij];
+                if(temporaire != null)
+                {
+                    if(temporaire.getClass().getName() == "model.Roi")
+                    {
+                        if(couleur == Couleur.White)
+                        {
+                            if(temporaire.getColor() == Couleur.Black)
+                            {
+                                roiAdverse = tempEchequier[roii][roij];
+                                arretChercheRoi = false;
+                            }
+                        }
+                        else
+                        {
+                            if(temporaire.getColor() == Couleur.White)
+                            {
+                                roiAdverse = tempEchequier[roii][roij];
+                                arretChercheRoi = false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //Recherche roiAdverse
         
+        for(int i =0; i<8 ; i++)
+        {
+            for(int j=0 ; j<8 ; j++)
+            {
+                if(tempEchequier[i][j] != null)
+                {
+                    if(tempEchequier[i][j].getColor() == couleur)
+                    {
+                        Boolean[][] tempMouvementPossible = calculMouvementPossible(tempEchequier,i, j,false);
+                        if(tempMouvementPossible[roiAdverse.getX()][roiAdverse.getY()] != null)
+                        {
+                            updateEchec(roiAdverse.getX(), roiAdverse.getY(), i, j);
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
         return false;
     }
     public Boolean verifEchecMath()
     {
-        return true;
+        return false;
     }
 }

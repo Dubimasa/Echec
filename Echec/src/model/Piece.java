@@ -3,7 +3,7 @@ package model;
 
 import java.util.*;
 
-public abstract class Piece {
+public abstract class Piece implements Cloneable {
     //private int[][]  mouvements= new int[8][8];
     protected int x;
     protected int y;
@@ -29,36 +29,36 @@ public abstract class Piece {
     public Couleur getColor() {
         return color;
     }
-    public abstract Map<Integer, int[]> calculmouvementPossible();
-    public boolean searchPieceDifferentColorOrNull(int search_x , int search_y)
+    public abstract Map<Integer, int[]> calculmouvementPossible(Piece[][] echequier);
+    public boolean searchPieceDifferentColorOrNull(Piece[][] echequier,int search_x , int search_y)
     {
-        System.out.println(search_x + " "+ search_y);
+        //System.out.println(search_x + " "+ search_y);
         if(search_x<0 || search_x>7 || search_y<0 || search_y>7)
         {
             return false;
         }
-        if(echec.getPiece(search_x,search_y) == null)
+        if(echequier[search_x][search_y] == null)
         {
             return true;
         }
-        if(this.getColor() != echec.getPiece(search_x,search_y).getColor())
+        if(this.getColor() != echequier[search_x][search_y].getColor())
         {
             return true;
         }
         return false;
     }
-    public boolean searchPieceDifferentColorNotNull(int search_x , int search_y)
+    public boolean searchPieceDifferentColorNotNull(Piece[][] echequier,int search_x , int search_y)
     {
-        System.out.println(search_x + " "+ search_y);
+        //System.out.println(search_x + " "+ search_y);
         if(search_x<0 || search_x>7 || search_y<0 || search_y>7)
         {
             return false;
         }
-        if(echec.getPiece(search_x,search_y) == null)
+        if(echequier[search_x][search_y] == null)
         {
             return false;
         }
-        if(this.getColor() != echec.getPiece(search_x,search_y).getColor())
+        if(this.getColor() != echequier[search_x][search_y].getColor())
         {
             return true;
         }
@@ -78,5 +78,9 @@ public abstract class Piece {
     }
     public void setNot_play(boolean not_play) {
         this.not_play = not_play;
+    }
+    public Piece clonee() throws CloneNotSupportedException
+    {
+        return (Piece) this.clone();
     }
 }

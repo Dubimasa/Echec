@@ -4,6 +4,6 @@ import model.Echec;
 
 public interface EchecObserver {
     public void updateMouvementPossible(Boolean[][] mouvementPossible);
-    public void updateMouvement(Echec echec);
-    public void updateEchec(Echec echec);
+    public void updateMouvement(Piece[][] echecquier);
+    public void updateEchec(int roix, int roiy, int attaquantx , int attaquanty);
 }

@@ -42,7 +42,7 @@ public class Facade {
         else
         {
             pieceSelectionee = temp;
-            mouvementPossible = echec.calculMouvementPossible(x,y);
+            mouvementPossible = echec.mouvementPossible(x,y);
         }
     }
 }

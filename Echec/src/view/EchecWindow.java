@@ -153,14 +153,13 @@ public class EchecWindow extends JFrame implements EchecObserver{
     }
 
     @Override
-    public void updateMouvement(Echec echec) {
+    public void updateMouvement(Piece[][] echecquier) {
         cleanBord();
-        Piece[][] echecEchecquier = echec.getEchecquier();
         for(int x = 0; x<8;x++)
         {
             for (int y =0; y<8; y++)
             {
-                Piece temp = echecEchecquier[x][y];
+                Piece temp = echecquier[x][y];
                 if(temp != null)
                 {
                     Echecquier[x][y].setText(temp.getClass().getSimpleName() + temp.getColor());
@@ -173,7 +172,9 @@ public class EchecWindow extends JFrame implements EchecObserver{
     }
 
     @Override
-    public void updateEchec(Echec echec) {
-
+    public void updateEchec(int roix, int roiy, int attaquantx , int attaquanty) {
+        backgroundEchequierBlackWhite();
+        Echecquier[roix][roiy].setBackground(Color.RED);
+        Echecquier[attaquantx][attaquanty].setBackground(Color.RED);
     }
 }
