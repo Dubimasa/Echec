@@ -13,7 +13,7 @@ public class Main {
         playerBlack.setColor(Couleur.Black);
         Echec echec = new Echec(playerWhite,playerBlack);
         Facade facade = new Facade(echec,playerWhite,playerBlack);
-        EchecWindow affiche = new EchecWindow(facade);
+        EchecWindow affiche = new EchecWindow(facade,playerWhite,playerBlack);
         echec.addObserveur(affiche);
         facade.creationPartie();
     }

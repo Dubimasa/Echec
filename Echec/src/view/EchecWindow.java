@@ -59,7 +59,7 @@ public class EchecWindow extends JFrame implements EchecObserver{
         setVisible(true);
     }
 
-    public Apres_Partie(Facade facade2, Joueur vainqueur){
+    /*public Apres_Partie(Facade facade2, Joueur vainqueur){
         facade = facade2;
         setTitle("Echec");
         setSize(600, 600);
@@ -72,7 +72,7 @@ public class EchecWindow extends JFrame implements EchecObserver{
 
         add(FicheEnd);
         setVisible(true);
-    }
+    }*/
 
     private void AfficherEchequier()
     {
