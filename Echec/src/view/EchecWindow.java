@@ -14,7 +14,7 @@ public class EchecWindow extends JFrame implements EchecObserver{
     private JPanel FicheEnd;
     private Facade facade;
 
-    public EchecWindow(Facade facade1){
+    public EchecWindow(Facade facade1, Joueur joueur1, Joueur joueur2){
         facade = facade1;
         setTitle("Echec");
         setSize(600, 600);
@@ -25,6 +25,10 @@ public class EchecWindow extends JFrame implements EchecObserver{
         JLabel currentPlayer = new JLabel("Tour du joueur :  ");
 
         AfficherEchequier();
+
+        JLabel pointPlayer1 = new JLabel("Score joueur 1 :  " + joueur1.getScore());
+        JLabel pointPlayer2 = new JLabel("Score joueur 2 :  " + joueur2.getScore());
+
         //Avant_Partie();
         add(FicheJeu);
         setVisible(true);
@@ -55,7 +59,7 @@ public class EchecWindow extends JFrame implements EchecObserver{
         setVisible(true);
     }
 
-    public Apres_Partie(Facade facade2){
+    public Apres_Partie(Facade facade2, Joueur vainqueur){
         facade = facade2;
         setTitle("Echec");
         setSize(600, 600);
@@ -64,7 +68,7 @@ public class EchecWindow extends JFrame implements EchecObserver{
         setBackground(Color.LIGHT_GRAY);
         setLayout(new GridLayout(6, 1));
 
-        JLabel Winner = new JLabel("Le vainqueur est ");
+        JLabel Winner = new JLabel("Le vainqueur est " + vainqueur.getNom());
 
         add(FicheEnd);
         setVisible(true);
