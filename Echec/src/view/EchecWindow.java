@@ -11,6 +11,7 @@ public class EchecWindow extends JFrame implements EchecObserver{
     private static Button_piece[][] Echecquier = new Button_piece[8][8];
     private JPanel FicheJeu;
     private JPanel FicheStart;
+    private JPanel FicheEnd;
     private Facade facade;
 
     public EchecWindow(Facade facade1){
@@ -27,38 +28,48 @@ public class EchecWindow extends JFrame implements EchecObserver{
         //Avant_Partie();
         add(FicheJeu);
         setVisible(true);
-
-
     }
-    /*private void Avant_Partie()
+
+    private void Avant_Partie(Facade facade0)
     {
-        facade = facade1;
+        facade = facade0;
         setTitle("Echec");
         setSize(600, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 
-        FicheStart = new JPanel();
-        FicheStart.setBackground(Color.LIGHT_GRAY);
-        FicheStart.setLayout(new GridLayout(6, 1));
+        setBackground(Color.LIGHT_GRAY);
+        setLayout(new GridLayout(6, 1));
 
         JLabel player1 = new JLabel("Nom du premier joueur : ");
-        FicheStart.add(player1);
         JTextField pseudo1 = new JTextField (" Joueur 1 ");
-        FicheStart.add(pseudo2);
 
         JLabel player2 = new JLabel("Nom du second joueur : ");
-        FicheStart.add(player2);
         JTextField pseudo2 = new JTextField (" Joueur 2 ");
-        FicheStart.add(pseudo2);
 
         JCheckBox choixcolor = new JCheckBox("Le joueur 1 a les blancs");
-        FicheStart.add(choixcolor);
 
         JButton start = new JButton();
-        FicheStart.add(start);
+
+        add(FicheStart);
+        setVisible(true);
     }
-    */
+
+    public Apres_Partie(Facade facade2){
+        facade = facade2;
+        setTitle("Echec");
+        setSize(600, 600);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        setBackground(Color.LIGHT_GRAY);
+        setLayout(new GridLayout(6, 1));
+
+        JLabel Winner = new JLabel("Le vainqueur est ");
+
+        add(FicheEnd);
+        setVisible(true);
+    }
+
     private void AfficherEchequier()
     {
         FicheJeu = new JPanel();
