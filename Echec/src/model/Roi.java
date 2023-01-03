@@ -13,38 +13,54 @@ public class Roi extends Piece{
     public Map<Integer, int[]> calculmouvementPossible(){
         Map<Integer, int[]> mouvements = new HashMap<Integer, int[]>();
         int compteur = 0;
-        int[] moove1 = {1, 0};
-        mouvements.put(compteur, moove1);
-        compteur++;
-
-        int[] moove2 = {-1, 0};
-        mouvements.put(compteur, moove2);
-        compteur++;
-
-        int[] moove3 = {1, 1};
-        mouvements.put(compteur, moove3);
-        compteur++;
-
-        int[] moove4 = {1, -1};
-        mouvements.put(compteur, moove4);
-        compteur++;
-
-        int[] moove5 = {0, -1};
-        mouvements.put(compteur, moove5);
-        compteur++;
-
-        int[] moove6 = {0, 1};
-        mouvements.put(compteur, moove6);
-        compteur++;
-
-        int[] moove7 = {-1, 1};
-        mouvements.put(compteur, moove7);
-        compteur++;
-
-        int[] moove8 = {-1, -1};
-        mouvements.put(compteur, moove8);
-        compteur++;
-
+        if(searchPieceDifferentColorOrNull(x+1, y))
+        {
+            int[] moove1 = {1, 0};
+            mouvements.put(compteur, moove1);
+            compteur++;
+        }
+        if(searchPieceDifferentColorOrNull(x-1, y))
+        {
+            int[] moove2 = {-1, 0};
+            mouvements.put(compteur, moove2);
+            compteur++;
+        }
+        if(searchPieceDifferentColorOrNull(x+1, y+1))
+        {
+            int[] moove3 = {1, 1};
+            mouvements.put(compteur, moove3);
+            compteur++;
+        }
+        if(searchPieceDifferentColorOrNull(x+1, y-1))
+        {
+            int[] moove4 = {1, -1};
+            mouvements.put(compteur, moove4);
+            compteur++;
+        }
+        if(searchPieceDifferentColorOrNull(x, y-1))
+        {
+            int[] moove5 = {0, -1};
+            mouvements.put(compteur, moove5);
+            compteur++;
+        }
+        if(searchPieceDifferentColorOrNull(x, y+1))
+        {
+            int[] moove6 = {0, 1};
+            mouvements.put(compteur, moove6);
+            compteur++;
+        }
+        if(searchPieceDifferentColorOrNull(x-1, y+1))
+        {
+            int[] moove7 = {-1, 1};
+            mouvements.put(compteur, moove7);
+            compteur++;
+        }
+        if(searchPieceDifferentColorOrNull(x-1, y-1))
+        {
+            int[] moove8 = {-1, -1};
+            mouvements.put(compteur, moove8);
+            compteur++;
+        }
         return mouvements;
     }
 }

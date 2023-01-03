@@ -13,39 +13,129 @@ public class Dame extends Piece {
     public Map<Integer, int[]> calculmouvementPossible(){
         Map<Integer, int[]> mouvements = new HashMap<Integer, int[]>();
 
+        boolean xpositif = true;
+        boolean xnegatif = true;
+        boolean ypositif = true;
+        boolean ynegatif = true;
+        boolean xPositifyPositif = true;
+        boolean xPositifyNegatif = true;
+        boolean xNegatifyPositif = true;
+        boolean xNegatifyNegatif = true;
+
         int compteur=0;
         for(int i=1; i<7; i++){
-            int[] moove1 = {i, i};
-            mouvements.put(compteur, moove1);
-            compteur++;
-
-            int[] moove2 = {i, -i};
-            mouvements.put(compteur, moove2);
-            compteur++;
-
-            int[] moove3 = {-i, i};
-            mouvements.put(compteur, moove3);
-            compteur++;
-
+            if(xpositif && searchPieceDifferentColorOrNull(x+i,y))
+            {
+                int[] moove1 = {i, 0};
+                mouvements.put(compteur, moove1);
+                compteur++;
+                if(searchPieceDifferentColorNotNull(x+i, y))
+                {
+                    xpositif = false;
+                }
+            }
+            else
+            {
+                xpositif = false;
+            }
+            if(xnegatif && searchPieceDifferentColorOrNull(x-i, y))
+            {
+                int[] moove2 = {-i, 0};
+                mouvements.put(compteur, moove2);
+                compteur++;
+                if(searchPieceDifferentColorNotNull(x-i, y))
+                {
+                    xnegatif = false;
+                }
+            }
+            else
+            {
+                xnegatif = false;
+            }
+            if(ypositif && searchPieceDifferentColorOrNull(x, y+i))
+            {
+                int[] moove3 = {0, i};
+                mouvements.put(compteur, moove3);
+                compteur++;
+                if(searchPieceDifferentColorNotNull(x, y+i))
+                {
+                    ypositif = false;
+                }
+            }
+            else
+            {
+                ypositif = false;
+            }
+            if(ynegatif && searchPieceDifferentColorOrNull(x, y-i))
+            {
+                int[] moove4 = {0, -i};
+                mouvements.put(compteur, moove4);
+                compteur++;
+                if(searchPieceDifferentColorNotNull(x, y-i))
+                    {
+                        ynegatif = false;
+                    }
+            }
+            else
+            {
+                ynegatif = false;
+            }
+            if(xPositifyPositif && searchPieceDifferentColorOrNull(x+i,y+i))
+            {
+                int[] moove1 = {i, i};
+                mouvements.put(compteur, moove1);
+                compteur++;
+                if(searchPieceDifferentColorNotNull(x+i, y+i))
+                {
+                    xPositifyPositif = false;
+                }
+            }
+            else
+            {
+                xPositifyPositif = false;
+            }
+            if(xPositifyNegatif && searchPieceDifferentColorOrNull(x+i,y-i))
+            {
+                int[] moove2 = {i, -i};
+                mouvements.put(compteur, moove2);
+                compteur++;
+                if(searchPieceDifferentColorNotNull(x+i, y-i))
+                {
+                    xPositifyNegatif = false;
+                }
+            }
+            else
+            {
+                xPositifyNegatif = false;
+            }
+            if(xNegatifyPositif && searchPieceDifferentColorOrNull(x-i,y+i))
+            {
+                int[] moove3 = {-i, i};
+                mouvements.put(compteur, moove3);
+                compteur++;
+                if(searchPieceDifferentColorNotNull(x-i, y+i))
+                {
+                    xNegatifyPositif = false;
+                }
+            }
+            else
+            {
+                xNegatifyPositif = false;
+            }
+            if(xNegatifyNegatif && searchPieceDifferentColorOrNull(x-i,y-i))
+            {
             int[] moove4 = {-i, -i};
             mouvements.put(compteur, moove4);
-             compteur++;
-
-             int[] moove5 = {i, 0};
-            mouvements.put(compteur, moove5);
             compteur++;
-
-            int[] moove6 = {-i, 0};
-            mouvements.put(compteur, moove6);
-            compteur++;
-
-            int[] moove7 = {0, i};
-            mouvements.put(compteur, moove7);
-            compteur++;
-
-            int[] moove8 = {0, -i};
-            mouvements.put(compteur, moove8);
-            compteur++;
+            if(searchPieceDifferentColorNotNull(x-i, y-i))
+            {
+                xNegatifyNegatif = false;
+            }
+            }
+            else
+            {
+                xNegatifyNegatif = false;
+            }
         }
 
 
