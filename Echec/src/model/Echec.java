@@ -129,37 +129,56 @@ public class Echec{
         for(int[] value : mouvements.values())
         {
             System.out.println(value[0] + " " + value[1]);
+            
+            //Ajouter un verifEchec
+
             mouvementPossible[x+value[0]][y+value[1]] = true;
         }
         updateMouvementPossible(mouvementPossible);
         return mouvementPossible;
     }
-    public Boolean mouvement(int x, int y)
+    public Boolean mouvement(int pieceSelectionex, int pieceSelectioney, int newEmplacementx, int newEmplacementy)
     {
-        System.out.println("X:" + x + " Y :" + y);
-        if(mouvementPossible[x][y])
+        if(mouvementPossible[newEmplacementx][newEmplacementy] != null )
         {
             //Changer l'échequier
-            
+            echecquier[pieceSelectionex][pieceSelectioney].setXY(newEmplacementx, newEmplacementy);
+            echecquier[pieceSelectionex][pieceSelectioney].setNot_play(false);
+            echecquier[newEmplacementx][newEmplacementy] = echecquier[pieceSelectionex][pieceSelectioney];
+            echecquier[pieceSelectionex][pieceSelectioney] = null;
             //Changer l'affichage de l'échequier
+            mouvementPossible = new Boolean[8][8];
             updateMouvement();
+            FintourJoueur();
+            return true;
         }
         return false;
     }
     public void FintourJoueur()
     {
-        if(couleur == Couleur.White)
+        //Detection d'échec
+        if(verifEchec())
         {
-            couleur = Couleur.Black;
+            if(verifEchecMath())
+            {
+                //Win du joueur actuel
+            }
         }
-        else
+        else //Tour suivant
         {
-            couleur = Couleur.White;
+            if(couleur == Couleur.White)
+            {
+                couleur = Couleur.Black;
+            }
+            else
+            {
+                couleur = Couleur.White;
+            }
         }
     }
     public Boolean verifEchec()
     {
-        return true;
+        return false;
     }
     public Boolean verifEchecMath()
     {

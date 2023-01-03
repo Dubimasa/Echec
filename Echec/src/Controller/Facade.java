@@ -22,11 +22,17 @@ public class Facade {
     {
         Piece temp = echec.getPiece(x,y);
         //System.out.println(temp.getClass().getSimpleName()+ " " + temp.getColor() +" " + echec.getCouleur() + "pieceX: " + temp.getX());
+        
         if(temp == null || temp.getColor() != echec.getCouleur())
         {
+            
             if(pieceSelectionee != null)
             {
-                echec.mouvement(x,y);
+                //System.out.println(pieceSelectionee.getClass().getSimpleName()+ " " + pieceSelectionee.getColor() +" " + echec.getCouleur());
+                if(echec.mouvement(pieceSelectionee.getX(),pieceSelectionee.getY(),x,y))
+                {
+                    pieceSelectionee = null;
+                }
             }
         }
         else
