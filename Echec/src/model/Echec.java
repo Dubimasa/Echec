@@ -8,12 +8,17 @@ import javax.xml.crypto.dsig.keyinfo.KeyValue;
 
 public class Echec{
     private static Piece[][] echecquier = new Piece[8][8];
+    private Boolean[][] mouvementPossible = new Boolean[8][8];
     private static ArrayList<EchecObserver> observers = new ArrayList<>();
     private Couleur couleur;
     private static PieceFactory pieceFactory = new PieceFactory();
-    public Echec()
+    private Joueur player1;
+    private Joueur player2;
+    public Echec(Joueur initPlayer1, Joueur initPlayer2)
     {
         couleur = Couleur.White;
+        player1 = initPlayer1;
+        player2 = initPlayer2;
     }
 
     public Couleur getCouleur() {
@@ -113,7 +118,7 @@ public class Echec{
     }
     public Boolean[][] calculMouvementPossible(int x,int y)
     {
-        Boolean[][] result = new Boolean[8][8];
+        mouvementPossible = new Boolean[8][8];
         Piece pieceSelectionne = getPiece(x, y);
         
         System.out.println("La classe sélectionné est :" + pieceSelectionne.getClass().getSimpleName() + " La couleur est : "
@@ -124,14 +129,22 @@ public class Echec{
         for(int[] value : mouvements.values())
         {
             System.out.println(value[0] + " " + value[1]);
-            result[x+value[0]][y+value[1]] = true;
+            mouvementPossible[x+value[0]][y+value[1]] = true;
         }
-        updateMouvementPossible(result);
-        return result;
+        updateMouvementPossible(mouvementPossible);
+        return mouvementPossible;
     }
     public Boolean mouvement(int x, int y)
     {
-        return true;
+        System.out.println("X:" + x + " Y :" + y);
+        if(mouvementPossible[x][y])
+        {
+            //Changer l'échequier
+            
+            //Changer l'affichage de l'échequier
+            updateMouvement();
+        }
+        return false;
     }
     public void FintourJoueur()
     {
