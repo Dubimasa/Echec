@@ -4,7 +4,7 @@ package model;
 import java.util.*;
 
 public abstract class Piece {
-    private int[][]  mouvements= new int[8][8];
+    //private int[][]  mouvements= new int[8][8];
     protected int x;
     protected int y;
     protected boolean not_play = true; //Boolean étant a true si la piece n'est pas encore joué
@@ -72,5 +72,11 @@ public abstract class Piece {
     }
     public int getX() {
         return x;
+    }
+    public int getY() {
+        return y;
+    }
+    public void setNot_play(boolean not_play) {
+        this.not_play = not_play;
     }
 }
