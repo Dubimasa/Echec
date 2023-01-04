@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Fou extends Piece{
-    public Fou(Couleur couleur1,Echec echec1)
+    public Fou(Couleur couleur1)
     {
-        super(couleur1,echec1);
+        super(couleur1);
     }
 
     //Méthode initialisant tous les mouvements possibles

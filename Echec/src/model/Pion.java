@@ -6,9 +6,9 @@ import java.util.Map;
 public class Pion extends Piece {
     
 
-    public Pion(Couleur color1,Echec echec1)
+    public Pion(Couleur color1)
     {
-        super(color1,echec1);
+        super(color1);
     }
 
     //Méthode initialisant tous les mouvements possibles

@@ -101,56 +101,56 @@ public class Echec{
         echecquier = new Piece[8][8];
 
         //tour
-        temp = pieceFactory.createTour(Couleur.Black,this);
+        temp = pieceFactory.createTour(Couleur.Black);
         setPiece(temp,0,0);
-        temp = pieceFactory.createTour(Couleur.Black,this);
+        temp = pieceFactory.createTour(Couleur.Black);
         setPiece(temp,7,0);
         
-        temp = pieceFactory.createTour(Couleur.White,this);
+        temp = pieceFactory.createTour(Couleur.White);
         setPiece(temp,0,7);
-        temp = pieceFactory.createTour(Couleur.White,this);
+        temp = pieceFactory.createTour(Couleur.White);
         setPiece(temp,7,7);
         //cavalier
-        temp = pieceFactory.createCavalier(Couleur.Black,this);
+        temp = pieceFactory.createCavalier(Couleur.Black);
         setPiece(temp,1,0);
-        temp = pieceFactory.createCavalier(Couleur.Black,this);
+        temp = pieceFactory.createCavalier(Couleur.Black);
         setPiece(temp,6,0);
         
-        temp = pieceFactory.createCavalier(Couleur.White,this);
+        temp = pieceFactory.createCavalier(Couleur.White);
         setPiece(temp,1,7);
-        temp = pieceFactory.createCavalier(Couleur.White,this);
+        temp = pieceFactory.createCavalier(Couleur.White);
         setPiece(temp,6,7);
         //fou
-        temp = pieceFactory.createFou(Couleur.Black,this);
+        temp = pieceFactory.createFou(Couleur.Black);
         setPiece(temp,2,0);
-        temp = pieceFactory.createFou(Couleur.Black,this);
+        temp = pieceFactory.createFou(Couleur.Black);
         setPiece(temp,5,0);
         
-        temp = pieceFactory.createFou(Couleur.White,this);
+        temp = pieceFactory.createFou(Couleur.White);
         setPiece(temp,2,7);
-        temp = pieceFactory.createFou(Couleur.White,this);
+        temp = pieceFactory.createFou(Couleur.White);
         setPiece(temp,5,7);
         //dame
-        temp = pieceFactory.createDame(Couleur.Black,this);
+        temp = pieceFactory.createDame(Couleur.Black);
         setPiece(temp,4,0);
-        temp = pieceFactory.createDame(Couleur.White,this);
+        temp = pieceFactory.createDame(Couleur.White);
         setPiece(temp,3,7);
         //Roi
-        temp = pieceFactory.createRoi(Couleur.Black,this);
+        temp = pieceFactory.createRoi(Couleur.Black);
         setPiece(temp,3,0);
         playerBlack.setRoi(temp);
-        temp = pieceFactory.createRoi(Couleur.White,this);
+        temp = pieceFactory.createRoi(Couleur.White);
         setPiece(temp,4,7);
         playerWhite.setRoi(temp);
         //Pion
         for(int i = 0; i<8 ; i++)
         {
-            temp = pieceFactory.createPion(Couleur.Black,this);
+            temp = pieceFactory.createPion(Couleur.Black);
             setPiece(temp,i,1);
         }
         for(int i = 0; i<8 ; i++)
         {
-            temp = pieceFactory.createPion(Couleur.White,this);
+            temp = pieceFactory.createPion(Couleur.White);
             setPiece(temp,i,6);
         }
     }
@@ -179,6 +179,25 @@ public class Echec{
                     clonePieceSelectionne.setXY(x+value[0], y+value[1]);
                     dupliEchequier[x+value[0]][y+value[1]] = clonePieceSelectionne;
                     dupliEchequier[x][y] = null;
+                    if(clonePieceSelectionne.getClass().getName() == "model.Roi" &&( value[0] == 2 || value[0] == -2))
+                    {
+                        //Deplacement de la tour dans l'échequier copié
+                        Piece cloneTour;
+                        if(value[0] == 2)
+                        {
+                            cloneTour = dupliEchequier[7][clonePieceSelectionne.getY()];
+                            cloneTour.setXY(clonePieceSelectionne.getX()-1, clonePieceSelectionne.getY());
+                            dupliEchequier[clonePieceSelectionne.getX()-1][clonePieceSelectionne.getY()] = cloneTour;
+                            dupliEchequier[7][clonePieceSelectionne.getY()] = null;
+                        }
+                        else //value[0] == -2
+                        {
+                            cloneTour = dupliEchequier[0][clonePieceSelectionne.getY()];
+                            cloneTour.setXY(clonePieceSelectionne.getX()+1, clonePieceSelectionne.getY());
+                            dupliEchequier[clonePieceSelectionne.getX()+1][clonePieceSelectionne.getY()] = cloneTour;
+                            dupliEchequier[0][clonePieceSelectionne.getY()] = null;
+                        }
+                    }
                     Couleur inverseCouleur;
                     if(couleur == Couleur.White)
                     {
@@ -214,6 +233,27 @@ public class Echec{
         echecquier[pieceSelectionex][pieceSelectioney].setNot_play(false);
         echecquier[newEmplacementx][newEmplacementy] = echecquier[pieceSelectionex][pieceSelectioney];
         echecquier[pieceSelectionex][pieceSelectioney] = null;
+        //Verification si en situation de rock
+        if(echecquier[newEmplacementx][newEmplacementy].getClass().getName() == "model.Roi" &&( newEmplacementx-pieceSelectionex == 2 || newEmplacementx-pieceSelectionex == -2))
+        {
+            Piece roi = echecquier[newEmplacementx][newEmplacementy];
+            //Deplacement de la tour dans l'échequier copié
+            Piece Tour;
+            if(newEmplacementx-pieceSelectionex == 2)
+            {
+                Tour = echecquier[7][roi.getY()];
+                Tour.setXY(roi.getX()-1, roi.getY());
+                echecquier[roi.getX()-1][roi.getY()] = Tour;
+                echecquier[7][roi.getY()] = null;
+            }
+            else //newEmplacementx-pieceSelectionex == -2
+            {
+                Tour = echecquier[0][roi.getY()];
+                Tour.setXY(roi.getX()+1, roi.getY());
+                echecquier[roi.getX()+1][roi.getY()] = Tour;
+                echecquier[0][roi.getY()] = null;
+            }
+        }
         //Changer l'affichage de l'échequier
         updateMouvement();
         //Verification si un pion est promu
@@ -253,16 +293,16 @@ public class Echec{
         switch(NomPiecePromu)
         {
             case "Cavalier":
-                newPiece = pieceFactory.createCavalier(couleur, this);
+                newPiece = pieceFactory.createCavalier(couleur);
                 break;
             case "Tour":
-                newPiece = pieceFactory.createTour(couleur, this);
+                newPiece = pieceFactory.createTour(couleur);
                 break;
             case "Fou":
-                newPiece = pieceFactory.createFou(couleur, this);
+                newPiece = pieceFactory.createFou(couleur);
                 break;
             default:
-                newPiece = pieceFactory.createDame(couleur, this);
+                newPiece = pieceFactory.createDame(couleur);
                 break;
         }
         newPiece.setXY(pion.getX(), pion.getY());

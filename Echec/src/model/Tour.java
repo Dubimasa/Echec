@@ -5,9 +5,9 @@ import java.util.Map;
 
 public class Tour extends Piece{
 
-    public Tour(Couleur couleur1,Echec echec1)
+    public Tour(Couleur couleur1)
     {
-        super(couleur1,echec1);
+        super(couleur1);
     }
 
     //Méthode initialisant tous les mouvements possibles

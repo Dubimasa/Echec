@@ -10,11 +10,9 @@ public abstract class Piece implements Cloneable {
     protected boolean not_play = true; //Boolean étant a true si la piece n'est pas encore joué
     protected Couleur color;
     protected int switch_color;
-    protected Echec echec;
 
-    public Piece(Couleur color1,Echec echec1)
+    public Piece(Couleur color1)
     {
-        echec = echec1;
         color = color1;
         if(color == Couleur.Black)
         {
@@ -79,6 +77,11 @@ public abstract class Piece implements Cloneable {
     public void setNot_play(boolean not_play) {
         this.not_play = not_play;
     }
+    public boolean getNot_play()
+    {
+        return not_play;
+    }
+    
     public Piece clonee() throws CloneNotSupportedException
     {
         return (Piece) this.clone();

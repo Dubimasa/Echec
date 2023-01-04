@@ -12,6 +12,7 @@ public class Button_piece extends JButton {
         x = x1;
         y= y1;
         name = name1;
+        //setSize(10,10);
     }
     public Button_piece(String name1)
     {

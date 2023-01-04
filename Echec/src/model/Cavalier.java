@@ -2,9 +2,9 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 public class Cavalier extends Piece {;
-    public Cavalier(Couleur couleur1,Echec echec1)
+    public Cavalier(Couleur couleur1)
     {
-        super(couleur1,echec1);
+        super(couleur1);
 
     }
 

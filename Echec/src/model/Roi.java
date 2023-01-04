@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Roi extends Piece{
-    public Roi(Couleur couleur1,Echec echec1)
+    public Roi(Couleur couleur1)
     {
-        super(couleur1,echec1);
+        super(couleur1);
     }
 
     //Méthode initialisant tous les mouvements possibles
@@ -60,6 +60,54 @@ public class Roi extends Piece{
             int[] moove8 = {-1, -1};
             mouvements.put(compteur, moove8);
             compteur++;
+        }
+        if(not_play)
+        {
+            Piece temp;
+            //Recherche Tour gauche
+            temp = echequier[0][getY()];
+            if(temp != null)
+            {
+                if(temp.getClass().getName() == "model.Tour"  && temp.getNot_play())
+                {
+                    boolean verifnull = true;
+                    for(int i = 1; i< getX() && verifnull ; i++)
+                    {
+                        if(echequier[i][getY()] != null)
+                        {
+                            verifnull = false;
+                        }
+                    }
+                    if(verifnull)
+                    {
+                        int[] moove9 = {-2, 0};
+                        mouvements.put(compteur, moove9);
+                        compteur++;
+                    }
+                }
+            }
+            //Recherche Tour Droite
+            temp = echequier[7][getY()];
+            if(temp != null)
+            {
+                if(temp.getClass().getName() == "model.Tour"  && temp.getNot_play())
+                {
+                    boolean verifnull = true;
+                    for(int i = 6; i> getX() && verifnull ; i--)
+                    {
+                        if(echequier[i][getY()] != null)
+                        {
+                            verifnull = false;
+                        }
+                    }
+                    if(verifnull)
+                    {
+                        int[] moove10 = {2, 0};
+                        mouvements.put(compteur, moove10);
+                        compteur++;
+                    }
+                }
+            }
         }
         return mouvements;
     }
