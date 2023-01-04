@@ -2,7 +2,7 @@ package Controller;
 
 import model.*;
 
-public class Facade {
+public class Facade extends Thread{
     private Echec echec;
     private Joueur playerWhite;
     private Joueur playerBlack;
@@ -32,7 +32,14 @@ public class Facade {
                 //System.out.println(pieceSelectionee.getClass().getSimpleName()+ " " + pieceSelectionee.getColor() +" " + echec.getCouleur());
                 if(mouvementPossible[x][y] != null )
                 {
-                    echec.mouvement(pieceSelectionee.getX(),pieceSelectionee.getY(),x,y);        
+                    Piece pieceselec = pieceSelectionee;
+                    Echec tempEchec = echec;
+                    new Thread() {
+                        @Override public void run() {
+                            tempEchec.mouvement(pieceselec.getX(),pieceselec.getY(),x,y);
+                            }
+                    }.start();
+                    //echec.mouvement(pieceSelectionee.getX(),pieceSelectionee.getY(),x,y);
                     pieceSelectionee = null;
                     mouvementPossible = new Boolean[8][8];
                     
@@ -44,5 +51,14 @@ public class Facade {
             pieceSelectionee = temp;
             mouvementPossible = echec.mouvementPossible(x,y);
         }
+    }
+    public void PionPromotion(String name)
+    {
+        new Thread(){
+            @Override public void run() {
+                echec.pionPromu(name); 
+                }
+        }.start();
+        //echec.pionPromu(name);        
     }
 }

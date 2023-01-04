@@ -15,6 +15,7 @@ public class Echec{
     private static PieceFactory pieceFactory = new PieceFactory();
     private Joueur playerWhite;
     private Joueur playerBlack;
+    private String NomPiecePromu;
     public Echec(Joueur initPlayer1, Joueur initPlayer2)
     {
         couleur = Couleur.White;
@@ -55,6 +56,12 @@ public class Echec{
     {
         for (EchecObserver echecObserver: observers) {
             echecObserver.updateEchecMath(couleur);
+        }
+    }
+    private void updatePromotionPion(int x, int y)
+    {
+        for (EchecObserver echecObserver: observers) {
+            echecObserver.updatePromotionPion(x, y);
         }
     }
     private void setPiece(Piece piece, int x, int y)
@@ -209,7 +216,67 @@ public class Echec{
         echecquier[pieceSelectionex][pieceSelectioney] = null;
         //Changer l'affichage de l'échequier
         updateMouvement();
+        //Verification si un pion est promu
+        if(echecquier[newEmplacementx][newEmplacementy].getClass().getName() == "model.Pion")
+        {
+            if(echecquier[newEmplacementx][newEmplacementy].getColor() == Couleur.White)
+            {
+                if(echecquier[newEmplacementx][newEmplacementy].getY() == 0)
+                {
+                    PromotionPion(echecquier[newEmplacementx][newEmplacementy]);
+                }
+            }
+            else // == Couleur.Black
+            {
+                if(echecquier[newEmplacementx][newEmplacementy].getY() == 7)
+                {
+                    PromotionPion(echecquier[newEmplacementx][newEmplacementy]);
+                }
+            }
+            
+        }
         FintourJoueur();
+    }
+    private void PromotionPion(Piece pion)
+    {
+        updatePromotionPion(pion.getX(),pion.getY());
+        synchronized(this)
+        {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        Piece newPiece;
+        switch(NomPiecePromu)
+        {
+            case "Cavalier":
+                newPiece = pieceFactory.createCavalier(couleur, this);
+                break;
+            case "Tour":
+                newPiece = pieceFactory.createTour(couleur, this);
+                break;
+            case "Fou":
+                newPiece = pieceFactory.createFou(couleur, this);
+                break;
+            default:
+                newPiece = pieceFactory.createDame(couleur, this);
+                break;
+        }
+        newPiece.setXY(pion.getX(), pion.getY());
+        newPiece.setNot_play(false);
+        echecquier[pion.getX()][pion.getY()] = newPiece;
+        updateMouvement();
+    }
+    public void pionPromu(String name)
+    {
+        NomPiecePromu = name;
+        synchronized(this)
+        {
+            notify();
+        }
     }
     public void FintourJoueur()
     {

@@ -9,12 +9,16 @@ import java.awt.Color;
 
 public class EchecWindow extends JFrame implements EchecObserver{
     private static Button_piece[][] Echecquier = new Button_piece[8][8];
+    private Echec echec;
     private JPanel FicheJeu;
+    private JPanel FichePromotion;
     private JPanel FicheStart;
     private JPanel FicheEnd;
     private Facade facade;
+    private boolean decisionPion = false;
 
-    public EchecWindow(Facade facade1, Joueur joueur1, Joueur joueur2){
+    public EchecWindow(Facade facade1, Joueur joueur1, Joueur joueur2, Echec echec1){
+        echec = echec1;
         facade = facade1;
         setTitle("Echec");
         setSize(600, 600);
@@ -25,6 +29,7 @@ public class EchecWindow extends JFrame implements EchecObserver{
         JLabel currentPlayer = new JLabel("Tour du joueur :  ");
 
         AfficherEchequier();
+        CreationPannelPromotion();
 
         JLabel pointPlayer1 = new JLabel("Score joueur 1 :  " + joueur1.getScore());
         JLabel pointPlayer2 = new JLabel("Score joueur 2 :  " + joueur2.getScore());
@@ -33,7 +38,20 @@ public class EchecWindow extends JFrame implements EchecObserver{
         add(FicheJeu);
         setVisible(true);
     }
-
+    private void CreationPannelPromotion()
+    {
+        FichePromotion = new JPanel();
+        FichePromotion.setLayout( new FlowLayout() );
+        //Création des 4 button
+        Button_piece cavalier = boutonPromotion("Cavalier");
+        Button_piece Tour = boutonPromotion("Tour");
+        Button_piece Fou = boutonPromotion("Fou");
+        Button_piece dame = boutonPromotion("Dame");
+        FichePromotion.add(cavalier);
+        FichePromotion.add(Tour);
+        FichePromotion.add(Fou);
+        FichePromotion.add(dame);
+    }
     private void Avant_Partie(Facade facade0)
     {
         facade = facade0;
@@ -86,12 +104,14 @@ public class EchecWindow extends JFrame implements EchecObserver{
             for(int x =0; x<8;x++)
             {
                 color = !color;
-                temp = new Button_piece(x,y);
+                temp = new Button_piece(x,y,null);
 
                 temp.addActionListener(actionEvent -> {
                     Button_piece button = (Button_piece) actionEvent.getSource();
-                    facade.pieceSelectionneMouvement(button.recupx(), button.recupy());
-                    
+                    if(!decisionPion)
+                    {
+                        facade.pieceSelectionneMouvement(button.recupx(), button.recupy());
+                    }
                 });
                 temp.setBackground(Color.WHITE);
                 if(!color)
@@ -180,5 +200,23 @@ public class EchecWindow extends JFrame implements EchecObserver{
     public void updateEchecMath(Couleur couleur)
     {
         System.out.println("Victoire du joueur " + couleur);
+    }
+    public void updatePromotionPion(int x, int y)
+    {
+        FichePromotion.show();
+        decisionPion = true;
+
+        decisionPion = false;
+        facade.PionPromotion("dame");
+    }
+    private Button_piece boutonPromotion(String name)
+    {
+        Button_piece result = new Button_piece(name);
+        result.addActionListener(actionEvent -> {
+            Button_piece button = (Button_piece) actionEvent.getSource();
+            facade.PionPromotion(name);
+            decisionPion = false;
+        });
+        return result;
     }
 }
