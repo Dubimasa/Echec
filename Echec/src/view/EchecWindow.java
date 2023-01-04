@@ -177,4 +177,8 @@ public class EchecWindow extends JFrame implements EchecObserver{
         Echecquier[roix][roiy].setBackground(Color.RED);
         Echecquier[attaquantx][attaquanty].setBackground(Color.RED);
     }
+    public void updateEchecMath(Couleur couleur)
+    {
+        System.out.println("Victoire du joueur " + couleur);
+    }
 }

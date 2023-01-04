@@ -3,6 +3,7 @@ package model;
 
 import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 import javax.xml.crypto.dsig.keyinfo.KeyValue;
 
@@ -50,6 +51,12 @@ public class Echec{
     public Piece[][] getEchecquier() {
         return echecquier;
     }
+    private void updateEchecMath(Couleur couleur)
+    {
+        for (EchecObserver echecObserver: observers) {
+            echecObserver.updateEchecMath(couleur);
+        }
+    }
     private void setPiece(Piece piece, int x, int y)
     {
         
@@ -64,9 +71,9 @@ public class Echec{
         }
 
     }
-    public Piece getPiece(int x, int y)
+    public Piece getPiece(Piece[][] tempEchequier,int x, int y)
     {
-        Piece temp = echecquier[x][y];
+        Piece temp = tempEchequier[x][y];
         return temp;
     }
     private Piece[][] dupliqueEchequier(Piece[][] tempEchequier)
@@ -91,6 +98,7 @@ public class Echec{
         setPiece(temp,0,0);
         temp = pieceFactory.createTour(Couleur.Black,this);
         setPiece(temp,7,0);
+        
         temp = pieceFactory.createTour(Couleur.White,this);
         setPiece(temp,0,7);
         temp = pieceFactory.createTour(Couleur.White,this);
@@ -100,6 +108,7 @@ public class Echec{
         setPiece(temp,1,0);
         temp = pieceFactory.createCavalier(Couleur.Black,this);
         setPiece(temp,6,0);
+        
         temp = pieceFactory.createCavalier(Couleur.White,this);
         setPiece(temp,1,7);
         temp = pieceFactory.createCavalier(Couleur.White,this);
@@ -109,6 +118,7 @@ public class Echec{
         setPiece(temp,2,0);
         temp = pieceFactory.createFou(Couleur.Black,this);
         setPiece(temp,5,0);
+        
         temp = pieceFactory.createFou(Couleur.White,this);
         setPiece(temp,2,7);
         temp = pieceFactory.createFou(Couleur.White,this);
@@ -140,23 +150,18 @@ public class Echec{
     public Boolean[][] mouvementPossible(int x,int y)
     {
         Boolean[][] mouvementPossible;
-        mouvementPossible = calculMouvementPossible(echecquier,x, y,true);
+        mouvementPossible = calculMouvementPossible(echecquier,x, y,true,couleur);
         updateMouvementPossible(mouvementPossible);
         return mouvementPossible;
     }
-    private Boolean[][] calculMouvementPossible(Piece[][] tempEchequier,int x,int y,boolean pieceMouvement)
+    private Boolean[][] calculMouvementPossible(Piece[][] tempEchequier,int x,int y,boolean pieceMouvement,Couleur couleur)
     {
         Boolean[][] mouvementPossible = new Boolean[8][8];
-        Piece pieceSelectionne = getPiece(x, y);
-        
-        //System.out.println("La classe sélectionné est :" + pieceSelectionne.getClass().getSimpleName() + " La couleur est : "
-        // + pieceSelectionne.getColor() + " et la position est " + x+" "+ y);
+        Piece pieceSelectionne = getPiece(tempEchequier,x, y);
         
         Map<Integer, int[]> mouvements = pieceSelectionne.calculmouvementPossible(tempEchequier);
-        //System.out.println("Les mouvement sont :");
         for(int[] value : mouvements.values())
         {
-            //System.out.println(value[0] + " " + value[1]);
             if(pieceMouvement)
             {
             //Ajouter un verifEchec
@@ -176,14 +181,14 @@ public class Echec{
                     {
                         inverseCouleur = Couleur.White;
                     }
-                    if(!(verifEchec(dupliEchequier, inverseCouleur)))
+                    if(verifEchec(dupliEchequier, inverseCouleur).size() == 0) //Pas mise en échec
                     {
                         mouvementPossible[x+value[0]][y+value[1]] = true;
                     }
                 }
                 catch(Exception e)
                 {
-                    System.out.println("Personne n'est censé me voir et si c'est le cas mon créateur pue");
+                    System.out.println("Hey listen!\n" + e);
                 }
                 
             }
@@ -209,12 +214,21 @@ public class Echec{
     public void FintourJoueur()
     {
         //Detection d'échec
-        if(verifEchec(echecquier,couleur))
+        List<Piece> pieceAttaquant = verifEchec(echecquier,couleur);
+        if(pieceAttaquant.size() > 0)
         {
-            System.out.println("ECHEC");
-            if(verifEchecMath())
+            if(couleur == Couleur.White)
+            {
+                updateEchec(playerBlack.getRoi().getX(), playerBlack.getRoi().getY(), pieceAttaquant.get(0).getX(), pieceAttaquant.get(0).getY());
+            }
+            else
+            {
+                updateEchec(playerWhite.getRoi().getX(), playerWhite.getRoi().getY(), pieceAttaquant.get(0).getX(), pieceAttaquant.get(0).getY());
+            }
+            if(verifEchecMath(pieceAttaquant))
             {
                 //Win du joueur actuel
+                updateEchecMath(couleur);
             }
         }
         //Tour suivant
@@ -227,8 +241,10 @@ public class Echec{
             couleur = Couleur.White;
         }
     }
-    public Boolean verifEchec(Piece[][] tempEchequier, Couleur couleur)
+    public List<Piece> verifEchec(Piece[][] tempEchequier, Couleur couleur)
     {
+        List<Piece> piecesAttaquant = new ArrayList<Piece>();
+        //Recherche roiAdverse
         //Piece forcément remplacé par le double for en dessous
         Piece roiAdverse = tempEchequier[0][0];
         boolean arretChercheRoi = true;
@@ -261,8 +277,6 @@ public class Echec{
                 }
             }
         }
-        //Recherche roiAdverse
-        
         for(int i =0; i<8 ; i++)
         {
             for(int j=0 ; j<8 ; j++)
@@ -271,20 +285,87 @@ public class Echec{
                 {
                     if(tempEchequier[i][j].getColor() == couleur)
                     {
-                        Boolean[][] tempMouvementPossible = calculMouvementPossible(tempEchequier,i, j,false);
+                        Boolean[][] tempMouvementPossible = calculMouvementPossible(tempEchequier,i, j,false,couleur);
                         if(tempMouvementPossible[roiAdverse.getX()][roiAdverse.getY()] != null)
                         {
-                            updateEchec(roiAdverse.getX(), roiAdverse.getY(), i, j);
-                            return true;
+                            piecesAttaquant.add(tempEchequier[i][j]);
+                        }
+                        
+                    }
+                }
+                
+            }
+        }
+        return piecesAttaquant;
+    }
+    public Boolean verifEchecMath(List<Piece> piecesAttaquant)
+    {
+        Piece RoiAdverse;
+        Couleur couleurAdverse;
+        //Recupérer le roi adverse
+        if(couleur == Couleur.White)
+        {
+            RoiAdverse = playerBlack.getRoi();
+            couleurAdverse = Couleur.Black;
+        }
+        else
+        {
+            RoiAdverse = playerWhite.getRoi();
+            couleurAdverse = Couleur.White;
+        }
+        if(piecesAttaquant.size() >=2)
+        {
+            //Verifier si le roi peut bouger si non Perdu
+            Boolean[][] mouvementPossible = calculMouvementPossible(echecquier, RoiAdverse.getX(), RoiAdverse.getY(), true,couleurAdverse);
+            if(!searchMouvementpossibleEchec(mouvementPossible)) // si aucun mouvement possible alors echec et math
+            {
+                return true;
+            }
+        }
+        else
+        {
+            //Verifier si une piece de la mème couleur que le roi a un mouvement possible si non Perdu
+            for(int i =0; i<8 ; i++)
+            {
+                for(int j=0 ; j<8 ; j++)
+                {
+                    Piece pieceSelectionne = echecquier[i][j]; 
+                    if(pieceSelectionne != null)
+                    {
+                        if(pieceSelectionne.getColor() == RoiAdverse.getColor())
+                        {
+                            Boolean[][] mouvementPossible = calculMouvementPossible(echecquier, i, j, true,couleurAdverse);
+                            if(searchMouvementpossibleEchec(mouvementPossible)) // si aucun mouvement possible alors echec et math
+                            {
+                                return false;
+                            }
                         }
                     }
                 }
             }
+            return true;
         }
         return false;
     }
-    public Boolean verifEchecMath()
+    /**
+     * Recherche si un mouvement est possible dont le tableau passé en 
+     * paramètre est le tableau des mouvement possible d'une piece
+     * @param mouvementPossible
+     * @return
+     */
+    private boolean searchMouvementpossibleEchec(Boolean[][] mouvementPossible)
     {
-        return false;
+        boolean temp = false;
+        for(int i = 0; i<8;i++)
+        {
+            for(int j = 0;j<8;j++)
+            {       
+                if(mouvementPossible[i][j] != null)
+                {
+                    temp = true;
+                }
+            }
+        }
+        return temp;
     }
 }
