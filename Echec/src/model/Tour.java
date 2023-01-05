@@ -8,6 +8,7 @@ public class Tour extends Piece{
     public Tour(Couleur couleur1)
     {
         super(couleur1);
+        score = 3;
     }
 
     //Méthode initialisant tous les mouvements possibles

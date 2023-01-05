@@ -9,6 +9,7 @@ public class Pion extends Piece {
     public Pion(Couleur color1)
     {
         super(color1);
+        score = 1;
     }
 
     //Méthode initialisant tous les mouvements possibles

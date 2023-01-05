@@ -7,6 +7,7 @@ public class Fou extends Piece{
     public Fou(Couleur couleur1)
     {
         super(couleur1);
+        score =3;
     }
 
     //Méthode initialisant tous les mouvements possibles

@@ -8,4 +8,5 @@ public interface EchecObserver {
     public void updateEchec(int roix, int roiy, int attaquantx , int attaquanty);
     public void updateEchecMath(Couleur couleur);
     public void updatePromotionPion(int x, int y);
+    public void updateScore(int score,Couleur couleur);
 }

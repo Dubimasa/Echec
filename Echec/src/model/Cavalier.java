@@ -5,7 +5,7 @@ public class Cavalier extends Piece {;
     public Cavalier(Couleur couleur1)
     {
         super(couleur1);
-
+        score =2;
     }
 
     //Méthode initialisant tous les mouvements possibles

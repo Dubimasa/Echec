@@ -7,6 +7,7 @@ public class Dame extends Piece {
     public Dame(Couleur couleur1)
     {
         super(couleur1);
+        score = 5;
     }
 
     //Méthode initialisant tous les mouvements possibles

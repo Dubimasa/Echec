@@ -64,6 +64,12 @@ public class Echec{
             echecObserver.updatePromotionPion(x, y);
         }
     }
+    private void updateScore(int score)
+    {
+        for (EchecObserver echecObserver: observers) {
+            echecObserver.updateScore(score, couleur);
+        }
+    }
     private void setPiece(Piece piece, int x, int y)
     {
         
@@ -229,6 +235,10 @@ public class Echec{
     public void mouvement(int pieceSelectionex, int pieceSelectioney, int newEmplacementx, int newEmplacementy)
     {
         //Changer l'échequier
+        if(echecquier[newEmplacementx][newEmplacementy] != null)
+        {
+            updateScore(echecquier[newEmplacementx][newEmplacementy].getScore());
+        }
         echecquier[pieceSelectionex][pieceSelectioney].setXY(newEmplacementx, newEmplacementy);
         echecquier[pieceSelectionex][pieceSelectioney].setNot_play(false);
         echecquier[newEmplacementx][newEmplacementy] = echecquier[pieceSelectionex][pieceSelectioney];
@@ -292,13 +302,13 @@ public class Echec{
         Piece newPiece;
         switch(NomPiecePromu)
         {
-            case "Cavalier":
+            case "model.Cavalier":
                 newPiece = pieceFactory.createCavalier(couleur);
                 break;
-            case "Tour":
+            case "model.Tour":
                 newPiece = pieceFactory.createTour(couleur);
                 break;
-            case "Fou":
+            case "model.Fou":
                 newPiece = pieceFactory.createFou(couleur);
                 break;
             default:

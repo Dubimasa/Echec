@@ -11,26 +11,31 @@ public class Joueur {
     protected Couleur color;
     protected Piece roi;
 
-    public Joueur()
+    public Joueur(Couleur color1)
     {
-
+        color = color1;
+        setScore(0);
     }
     public void setNom(String init_nom)
     {
-        this.nom = init_nom;
+        nom = init_nom;
     }
     public String getNom() {
         return nom;
     }
-
-    public void setScore(){
-        this.score=0;
+    public Couleur getColor() {
+        return color;
     }
-    public void setColor(Couleur color) {
-        this.color = color;
+
+    public void setScore(int score1){
+        score= score1;
+    }
+    public void addScore(int score1)
+    {
+        score = score + score1;
     }
     public void addtoScore(int value){
-        this.score=this.score+value;
+        score = score+value;
     }
 
     public int getScore(){ return score;}

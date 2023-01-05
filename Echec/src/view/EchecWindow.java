@@ -9,59 +9,67 @@ import java.awt.Color;
 
 public class EchecWindow extends JFrame implements EchecObserver{
     private static Button_piece[][] Echecquier = new Button_piece[8][8];
-    private Echec echec;
     private JPanel FicheJeu;
     private JPanel FichePromotion;
     private JPanel FicheStart;
     private JPanel FicheEnd;
+    private JLabel scoreBlack;
+    private JLabel scoreWhite;
+    private Joueur joueurWhite;
+    private Joueur joueurBlack;
     private Facade facade;
     private boolean decisionPion = false;
 
-    public EchecWindow(Facade facade1, Joueur joueur1, Joueur joueur2, Echec echec1){
-        echec = echec1;
+    public EchecWindow(Facade facade1, Joueur joueur1, Joueur joueur2){
         facade = facade1;
+        joueurWhite = joueur1;
+        joueurBlack = joueur2;
         setTitle("Echec");
-        setSize(600, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        setLayout(new GridLayout(2, 1));
+        setLayout(new GridLayout(1, 1));
 
-        JLabel currentPlayer = new JLabel("Tour du joueur :  ");
-
-        AfficherEchequier();
+        startFicheStart();
         CreationPannelPromotion();
-
-        JLabel pointPlayer1 = new JLabel("Score joueur 1 :  " + joueur1.getScore());
-        JLabel pointPlayer2 = new JLabel("Score joueur 2 :  " + joueur2.getScore());
-
-        //Avant_Partie();
-        add(FicheJeu);
         setVisible(true);
     }
     private void CreationPannelPromotion()
     {
         FichePromotion = new JPanel();
-        FichePromotion.setLayout( new FlowLayout() );
+        FichePromotion.setLayout( new BoxLayout(FichePromotion,BoxLayout.Y_AXIS) );
         //Création des 4 button
-        Button_piece cavalier = boutonPromotion("Cavalier");
-        Button_piece Tour = boutonPromotion("Tour");
-        Button_piece Fou = boutonPromotion("Fou");
-        Button_piece dame = boutonPromotion("Dame");
+        Button_piece cavalier = boutonPromotion("model.Cavalier");
+        Button_piece Tour = boutonPromotion("model.Tour");
+        Button_piece Fou = boutonPromotion("model.Fou");
+        Button_piece dame = boutonPromotion("model.Dame");
         FichePromotion.add(cavalier);
         FichePromotion.add(Tour);
         FichePromotion.add(Fou);
         FichePromotion.add(dame);
+        FichePromotion.setVisible(false);
     }
-    private void Avant_Partie(Facade facade0)
+    private void startFicheStart()
     {
-        facade = facade0;
-        setTitle("Echec");
-        setSize(600, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(250,200);
+        creationFicheStart();
+        add(FicheStart);
+    }
+    private void startEchec(Joueur white, Joueur black)
+    {
+        remove(FicheStart);
+        setSize(700,400);
+        creationEchec(white,black);
+        add(FicheJeu);
+        facade.creationPartie();
+    }
+    private void creationFicheStart()
+    {
+        FicheStart = new JPanel();
+        //FicheStart.setSize(600, 600);
 
 
-        setBackground(Color.LIGHT_GRAY);
-        setLayout(new GridLayout(6, 1));
+        FicheStart.setBackground(Color.LIGHT_GRAY);
+        FicheStart.setLayout(new BoxLayout(FicheStart,BoxLayout.Y_AXIS));
 
         JLabel player1 = new JLabel("Nom du premier joueur : ");
         JTextField pseudo1 = new JTextField (" Joueur 1 ");
@@ -69,33 +77,77 @@ public class EchecWindow extends JFrame implements EchecObserver{
         JLabel player2 = new JLabel("Nom du second joueur : ");
         JTextField pseudo2 = new JTextField (" Joueur 2 ");
 
-        JCheckBox choixcolor = new JCheckBox("Le joueur 1 a les blancs");
+        JCheckBox choixcolor = new JCheckBox("Le joueur 1 a les blancs",true);
 
-        JButton start = new JButton();
-
-        add(FicheStart);
+        JButton start = new JButton("Start the Game");
+        start.addActionListener(actionEvent -> {
+            //Start Echec
+            //Verifier si le pseudo1 et pseudo2 ne sont pas vide
+            if(pseudo1.getText() != "" && pseudo2.getText() != "")
+            {
+                if(choixcolor.isSelected()) //Joueur1 est le blanc
+                {
+                    joueurWhite.setNom(pseudo1.getText());
+                    joueurBlack.setNom(pseudo2.getText());
+                }
+                else //Joueur2 est le blanc
+                {
+                    joueurWhite.setNom(pseudo2.getText());
+                    joueurBlack.setNom(pseudo1.getText());
+                }
+                startEchec(joueurWhite, joueurBlack);
+            }
+        });
+        player1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        pseudo1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        player2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        pseudo2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        choixcolor.setAlignmentX(Component.CENTER_ALIGNMENT);
+        start.setAlignmentX(Component.CENTER_ALIGNMENT);
+        FicheStart.add(player1);
+        FicheStart.add(pseudo1);
+        FicheStart.add(player2);
+        FicheStart.add(pseudo2);
+        FicheStart.add(choixcolor);
+        FicheStart.add(start);
         setVisible(true);
     }
 
-    /*public Apres_Partie(Facade facade2, Joueur vainqueur){
-        facade = facade2;
-        setTitle("Echec");
-        setSize(600, 600);
+    public void creationFicheEnd(Joueur vainqueur){
+        FicheEnd = new JPanel();
+        setSize(400, 100);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         setBackground(Color.LIGHT_GRAY);
-        setLayout(new GridLayout(6, 1));
+        FicheEnd.setLayout( new BoxLayout(FicheEnd,BoxLayout.Y_AXIS) );
 
         JLabel Winner = new JLabel("Le vainqueur est " + vainqueur.getNom());
+        Winner.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //Ajout Jbutton retry et Quittez
+        JButton Retry = new JButton("Retry");
+        Retry.addActionListener(actionEvent -> {
+            startFicheStart();
+            remove(FicheEnd);
+        });
+        Retry.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JButton Quitter = new JButton("Quitter");
+        Quitter.setAlignmentX(Component.CENTER_ALIGNMENT);
+        Quitter.addActionListener(actionEvent -> {
+            dispose();
+        });
 
-        add(FicheEnd);
+        FicheEnd.add(Winner);
+        FicheEnd.add(Retry);
+        FicheEnd.add(Quitter);
         setVisible(true);
-    }*/
+    }
 
-    private void AfficherEchequier()
+    private void creationEchec(Joueur white, Joueur black)
     {
         FicheJeu = new JPanel();
-        FicheJeu.setLayout( new GridLayout(8,8));
+        FicheJeu.setLayout(new FlowLayout());
+        JPanel ficheEchecquier = new JPanel();
+        ficheEchecquier.setLayout( new GridLayout(8,8));
         Button_piece temp;
         Boolean color = false;
         for(int y = 0; y<8; y++)
@@ -104,8 +156,8 @@ public class EchecWindow extends JFrame implements EchecObserver{
             for(int x =0; x<8;x++)
             {
                 color = !color;
-                temp = new Button_piece(x,y,null);
-
+                temp = new Button_piece(x,y);
+                temp.setPreferredSize(new Dimension(50, 40));
                 temp.addActionListener(actionEvent -> {
                     Button_piece button = (Button_piece) actionEvent.getSource();
                     if(!decisionPion)
@@ -119,10 +171,44 @@ public class EchecWindow extends JFrame implements EchecObserver{
                     temp.setBackground(new Color(53, 75, 1));
                 }
                 Echecquier[x][y] = temp;
-                FicheJeu.add(temp);
+                ficheEchecquier.add(temp);
             }
             color = !color;
         }
+        //Fiche Affichage des joueurs et de leur score ainsi que de qui qui joue
+        JPanel ficheJoueur = new JPanel();
+        //Contient 3 partie: Joueur noir, FichePromotionPion , joueur blanc
+        ficheJoueur.setLayout(new BoxLayout(ficheJoueur,BoxLayout.Y_AXIS));
+        JPanel fiche = createJoueur(black);
+        ficheJoueur.add(fiche);
+        ficheJoueur.add(FichePromotion);
+        fiche = createJoueur(white);
+        ficheJoueur.add(fiche);
+        //Ajout des deux JPanel dans le pannel FicheJeu
+        FicheJeu.add(ficheEchecquier);
+        FicheJeu.add(ficheJoueur);
+    }
+    private JPanel createJoueur(Joueur joueur)
+    {
+        JPanel pJoueur = new JPanel();
+        pJoueur.setLayout(new BoxLayout(pJoueur,BoxLayout.Y_AXIS));
+        JLabel nameJoueur = new JLabel(joueur.getNom());
+        JLabel couleurJoueur = new JLabel(joueur.getColor().toString());
+        JLabel score = new JLabel();
+        if(joueur.getColor() == Couleur.White)
+        {
+            scoreWhite = score;
+        }
+        else
+        {
+            scoreBlack = score;
+        }
+        score.setText(joueur.getScore()+ "");
+        score.setBorder(BorderFactory.createEmptyBorder(0,0,20,0));
+        pJoueur.add(nameJoueur);
+        pJoueur.add(couleurJoueur);
+        pJoueur.add(score);
+        return pJoueur;
     }
     private void backgroundEchequierBlackWhite()
     {
@@ -151,7 +237,6 @@ public class EchecWindow extends JFrame implements EchecObserver{
             for (int y =0; y<8; y++)
             {
                 Echecquier[x][y].setText("");
-                //Echecquier[x][y].setIcon(null);
             }
         }
     }
@@ -182,9 +267,12 @@ public class EchecWindow extends JFrame implements EchecObserver{
                 Piece temp = echecquier[x][y];
                 if(temp != null)
                 {
-                    Echecquier[x][y].setText(temp.getClass().getSimpleName() + temp.getColor());
-                    //Icon icon = new ImageIcon("images/Tour_Blanc.png");
-                    //Echecquier[x][y].setIcon(icon);
+                    Echecquier[x][y].metName(temp.getClass().getName(), temp.getColor());
+                    //Echecquier[x][y].setText(temp.getClass().getSimpleName() + temp.getColor());
+                }
+                else
+                {
+                    Echecquier[x][y].metName(null, null);
                 }
 
             }
@@ -199,23 +287,44 @@ public class EchecWindow extends JFrame implements EchecObserver{
     }
     public void updateEchecMath(Couleur couleur)
     {
-        System.out.println("Victoire du joueur " + couleur);
+        remove(FicheJeu);
+        if(couleur == Couleur.White)
+        {
+            creationFicheEnd(joueurWhite);
+        }
+        else
+        {
+            creationFicheEnd(joueurBlack);
+        }
+        add(FicheEnd);
     }
     public void updatePromotionPion(int x, int y)
     {
-        FichePromotion.show();
+        FichePromotion.setVisible(true);
         decisionPion = true;
-
-        decisionPion = false;
-        facade.PionPromotion("dame");
+    }
+    public void updateScore(int score,Couleur couleur)
+    {
+        if(couleur == Couleur.White)
+        {
+            joueurWhite.addScore(score);
+            scoreWhite.setText(joueurWhite.getScore() + "");
+        }
+        else
+        {
+            joueurBlack.addScore(score);
+            scoreBlack.setText(joueurBlack.getScore() + "");
+        }
     }
     private Button_piece boutonPromotion(String name)
     {
-        Button_piece result = new Button_piece(name);
+        Button_piece result = new Button_piece(name,Couleur.White);
         result.addActionListener(actionEvent -> {
             Button_piece button = (Button_piece) actionEvent.getSource();
-            facade.PionPromotion(name);
+            facade.PionPromotion(button.recupName());
             decisionPion = false;
+            FichePromotion.setVisible(false);
+            //Ajout de disparition
         });
         return result;
     }
