@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d905714d-f693-4e64-baaa-2b9da471c6a1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../src/model/Cavalier.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/model/Cavalier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/model/Dame.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/model/Dame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/model/Echec.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/model/Echec.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/model/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/model/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/model/Pion.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/model/Pion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/view/Button_piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/view/Button_piece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Rapport Choix de conception.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Rapport Choix de conception.docx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +18,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="2JmC1yGUqW6XmPBqqba9dtriVTi" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -30,7 +31,8 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false"
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/But/année 2/semestre 1/A3/A32/a31-chessgame/Echec"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

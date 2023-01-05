@@ -5,6 +5,18 @@ Chess game
 
 L'objectif de ce projet est de concevoir une application permettant à deux joueurs humains de jouer aux échecs.
 
+Mode d'emploi
+-------------
+
+### Installation
+- Assurez-vous que vous avez Java sur votre ordinateur, sinon, vous pouvez [le télécharger ici](https://www.java.com/fr/).
+- [Téléchargez Chess.jar](https://git.unistra.fr/a313/a31-chessgame/chess.jar)
+
+### Exécution
+- Entrez la commande suivante dans un terminal :
+	java -jar Chess.jar
+- Le jeu se lance. Il n'y a aucun autre prérequis.
+
 Les règles
 ----------
 
