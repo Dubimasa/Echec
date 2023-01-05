@@ -6,10 +6,15 @@ Package Controller
 {
     class Facade
     {
-        -String player1
-        -String player2
+        -echec : Echec
+        -playerWhite : Joueur
+        -playerBlack : Joueur
+        -pieceSelectionee : Piece
+        -mouvementPossible : Boolean[][]
+        +Facade(echec1 : Echec, initplayer1 : Joueur, initplayer2 : Joueur)
         +pieceSelectionneMouvement(x Integer,y Integer) : Boolean[]
-        +CreationPartie()
+        +creationPartie()
+        +PionPromotion(name : String)
     }
 }
 Package model
@@ -22,13 +27,34 @@ Package model
     }
 
     class Echec {
+    -{static}echecquier : Piece[][]
+    -{static}observers : ArrayList<EchecObserver>
+    -couleur Couleur;
+    -{static}pieceFactory : PieceFactory
+    -playerWhite : Joueur
+    -playerBlack : Joueur
+    -NomPieceProm : String
+    +Echec(initPlayer1 Joueur, initPlayer2 Joueur)
+    +updateEchec(roix Integer, roiy Integer, attaquantx Integer, attaquanty Integer)
+    +getEchecquier() : Piece[][]
+    +getCouleur() : Couleur
+    +addObserveur(echecObserver : EchecObserver)
+    +updateMouvement()
+    +updateMouvementPossible(envoie Boolean[][])
+    +updateEchecMath(couleur Couleur)
+    +updatePromotionPion(x Integer, y Integer)
     +FintourJoueur()
-    +mouvement(position Integer[])
-    -verifEchec(color Color) : Boolean
-    -verifEchecMath(color Color) : Boolean
+    +mouvement(pieceSelectionex Integer, pieceSelectioney Integer, newEmplacementx Integer, newEmplacementy Integer)
+    +PromotionPion(pion Piece)
+    +pionProm()
+    +verifEchec(tempEchequier Piece[][], couleur Couleur) : Boolean
+    +verifEchecMath(piecesAttaquant List<Piece>) : Boolean
     +setPiece(piece Piece x Integer y Integer)
+    +getPiece(tempEchequier Piece[][], x Integer, y Integer)
+    +dupliqueEchequier(tempEchequier Piece[][])
     +creationPartie()
     +calculmouvementPossible(x Integer y Integer) : Boolean[]
+    +searchMouvementpossibleEchec(mouvementPossible Boolean[][])
     }
     class pieceFactory
     {
@@ -42,60 +68,117 @@ Package model
     }
     abstract class Piece
     {
-        +mouvementPossibles Integer[]
+        +Piece(color1 Couleur)
+        +abstract calculmouvementPossible(echec Echec) : Map<Integer, Integer[]>
+        +searchPieceDifferentColorOrNull(echequier Piece[][], search_x Integer, search_y Integer) : boolean
         +getColor()
         +capturePiece()
+        +setXY(init_x Integer, init_y Integer)
+        +getX() : Integer
+        +getY() : Integer
+        +setNot_play(not_play boolean)
+        +getNot_play() : boolean
+        +clonee() : Piece
     }
     class Pion extends Piece
     {
         -boolean tour1
-        +{static}Pion(color Color)
+        +Pion(color Color)
         +promotion()
-        +calculmouvementPossible(echec Echec) : Integer[]
+        +calculmouvementPossible(echec Echec) : Map<Integer, Integer[]>
     }
     class Cavalier extends Piece
     {
-    +{static}Cavalier(color Color)
-    +calculmouvementPossible(echec Echec) : Integer[]
+        +{static}Cavalier(color Color)
+        +calculmouvementPossible(echec Echec) : Map<Integer, Integer[]>
     }
     class Fou extends Piece
     {
-    +{static}Fou(color Color)
-    +calculmouvementPossible(echec Echec) : Integer[]
+        +{static}Fou(color Color)
+        +calculmouvementPossible(echec Echec) : Map<Integer, Integer[]>
     }
     class Tour extends Piece
     {
     +{static}Tour(color Color)
-    +calculmouvementPossible(echec Echec) : Integer[]
+    +calculmouvementPossible(echec Echec) : Map<Integer, Integer[]>
     }
     class Dame extends Piece
     {
-    +{static}Dame(color Color)
-    +calculmouvementPossible(echec Echec) : Integer[]
+        +{static}Dame(color Color)
+        +calculmouvementPossible(echec Echec) : Map<Integer, Integer[]>
     }
     class Roi extends Piece
     {
-    +{static}Roi(color Color)
-    +calculmouvementPossible(echec Echec) : Integer[]
+        +{static}Roi(color Color)
+        +calculmouvementPossible(echec Echec) : Map<Integer, Integer[]>
     }
     Enum Color
     {
         WHITE
         BLACK
     }
+
+    class Joueur
+    {
+     -nom : String
+     -score : Integer
+     -color : Couleur
+     -roi : Piece
+     +Joueur()
+     +setNom(init_nom : String)
+     +getNom() : String
+     +setScore()
+     +setColor(color Couleur)
+     +addtoScore(value Integer)
+     +getScore() : Integer
+     +getRoi() : Piece
+     +setRoi(roi : Piece)
+    }
 }
 Package view{
 
     class EchecWindow implements EchecObserver
     {
+     -{static}Echecquier : Button_piece[][]
+     -echec : Echec
+     -FicheJeu : JPanel
+     -FichePromotion : JPanel
+     -FicheStart : JPanel
+     -FicheEnd : JPanel
+     -facade : Facade
+     -decisionPion : boolean
      +EchecWindow()
-     +gameStart()
-     +GameFinish()
+     +CreationPannelPromotion()
+     +Avant_Partie(facade0 Facade)
+     +Apres_Partie(facade2 Facade)
+     +AfficherEchequier()
+     +backgroundEchequierBlackWhite()
+     +cleanBord()
+     +updateMouvementPossible(mouvementPossible : Boolean[][])
+     +updateMouvement(echecquier : Piece[][])
+     +updateEchec(roix Integer, roiy Integer, attaquantx Integer, attaquanty Integer)
+     +updateEchecMath(couleur Couleur)
+     +updatePromotionPion(x Integer, y Integer)
+     +boutonPromotion(name : String)) : Button_piece
+    }
+
+    class Button_piece
+    {
+        -x : Integer
+        -y : Integer
+        -name : String
+        +Button_piece(x1 : Integer, y1 : Integer ,  name1 : String)
+        +recupX() : Integer
+        +recupY() : Integer
+        +recupName() : String
     }
 
 }
 Piece *--> "1\n- color" Color : > A pour couleur
+Joueur *--> "1 color" Color : > A pour couleur
+Joueur *--> "1 color" Roi : > A pour roi
 Echec *--> "-64" Piece : > A besoin
+Echec *--> "2" Joueur : > A besoin
 
 Echec ..> pieceFactory : > <<use>>
 
@@ -112,5 +195,6 @@ EchecObserver <--o Echec : > Consult
 Facade --> Echec : > Manipule
 Facade ..> EchecWindow : > Selectionne
 EchecWindow --> Facade : > Transmet_Demandes
+EchecWindow *--> "-64" Button_piece : > A besoin
 
 @enduml
