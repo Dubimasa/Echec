@@ -12,7 +12,7 @@ Package Controller
         -pieceSelectionee : Piece
         -mouvementPossible : Boolean[][]
         +Facade(echec1 : Echec, initplayer1 : Joueur, initplayer2 : Joueur)
-        +pieceSelectionneMouvement(x Integer,y Integer) : Boolean[]
+        +pieceSelectionneMouvement(x Integer,y Integer)
         +creationPartie()
         +PionPromotion(name : String)
     }
@@ -23,8 +23,10 @@ Package model
     {
             +updateMouvementPossible()
             +updateMouvement()
-            +updateEchec()
-            +updateScore(score : Integer, couleur : Couleur);
+            +updateScore(score : Integer, couleur : Couleur)
+            +updatePromotionPion(x : Integer, y : Integer)
+            +updateEchec(roix : Integer, roiy : Integer, attaquantx : Integer, attaquanty : Integer)
+            +updateEchecMath(couleur : Couleur))
     }
 
     class Echec {
@@ -47,12 +49,12 @@ Package model
     +updatePromotionPion(x Integer, y Integer)
     +FintourJoueur()
     +mouvement(pieceSelectionex Integer, pieceSelectioney Integer, newEmplacementx Integer, newEmplacementy Integer)
-    +PromotionPion(pion Piece)
-    +pionProm()
+    +PromotionPion(pion : Piece)
+    +pionPromu(name : String))
     +verifEchec(tempEchequier Piece[][], couleur Couleur) : Boolean
     +verifEchecMath(piecesAttaquant List<Piece>) : Boolean
-    +setPiece(piece Piece x Integer y Integer)
-    +getPiece(tempEchequier Piece[][], x Integer, y Integer)
+    +setPiece(piece : Piece, x : Integer, y : Integer)
+    +getPiece(tempEchequier : Piece[][], x : Integer, y : Integer)
     +dupliqueEchequier(tempEchequier Piece[][])
     +creationPartie()
     +calculmouvementPossible(x Integer y Integer) : Boolean[]
@@ -60,7 +62,6 @@ Package model
     }
     class pieceFactory
     {
-        +PieceFactory()
         +createPion() : piece Piece
         +createCavalier() : piece Piece
         +createFou() : piece Piece
@@ -70,15 +71,17 @@ Package model
     }
     abstract class Piece
     {
+        -x : Integer
+        -y : Integer
+        -not_play : Integer
         -color : Couleur
         -switch_color : Integer
         -score : Integer
         +Piece(color1 Couleur)
         +getScore() : Integer
-        +abstract calculmouvementPossible(echec Echec) : Map<Integer, Integer[]>
+        +{abstract} calculmouvementPossible(echec Echec) : Map<Integer, Integer[]>
         +searchPieceDifferentColorOrNull(echequier Piece[][], search_x Integer, search_y Integer) : boolean
         +getColor()
-        +capturePiece()
         +setXY(init_x Integer, init_y Integer)
         +getX() : Integer
         +getY() : Integer
@@ -88,9 +91,7 @@ Package model
     }
     class Pion extends Piece
     {
-        -boolean tour1
         +Pion(color Color)
-        +promotion()
         +calculmouvementPossible(echec Echec) : Map<Integer, Integer[]>
     }
     class Cavalier extends Piece
@@ -118,7 +119,7 @@ Package model
         +{static}Roi(color Color)
         +calculmouvementPossible(echec Echec) : Map<Integer, Integer[]>
     }
-    Enum Color
+    Enum Couleur
     {
         WHITE
         BLACK
@@ -148,7 +149,6 @@ Package view{
     class EchecWindow implements EchecObserver
     {
      -{static}Echecquier : Button_piece[][]
-     -echec : Echec
      -FicheJeu : JPanel
      -FichePromotion : JPanel
      -FicheStart : JPanel
@@ -159,23 +159,23 @@ Package view{
      -joueurBlack : Joueur
      -facade : Facade
      -decisionPion : boolean
+     -boutonPromotion(name : String)) : Button_piece
+     -startFicheStart()
+     -startEchec(white : Joueur, black : Joueur)
+     -creationFicheStart()
+     -creationFicheEnd(vainqueur : Joueur)
+     -creationEchec(white : Joueur, black : Joueur)
+     -createJoueur(joueur : Joueur)
+     -CreationPannelPromotion()
+     -backgroundEchequierBlackWhite()
+     -cleanBord()
      +EchecWindow(facade1 : Facade, joueur1 : Joueur , joueur2 : Joueur)
-     +CreationPannelPromotion()
-     +Apres_Partie(facade2 Facade)
-     +backgroundEchequierBlackWhite()
-     +cleanBord()
      +updateMouvementPossible(mouvementPossible : Boolean[][])
      +updateMouvement(echecquier : Piece[][])
      +updateEchec(roix Integer, roiy Integer, attaquantx Integer, attaquanty Integer)
      +updateEchecMath(couleur Couleur)
      +updatePromotionPion(x Integer, y Integer)
      +updateScore(score : Integer, couleur : Couleur)
-     +boutonPromotion(name : String)) : Button_piece
-     +startFicheStart()
-     +startEchec(white : Joueur, black : Joueur)
-     +creationFicheStart()
-     +creationEchec(white : Joueur, black : Joueur)
-     -createJoueur(joueur : Joueur)
     }
 
     class Button_piece
@@ -193,8 +193,8 @@ Package view{
     }
 
 }
-Piece *--> "1\n- color" Color : > A pour couleur
-Joueur *--> "1 color" Color : > A pour couleur
+Piece *--> "1\n- color" Couleur : > A pour couleur
+Joueur *--> "1 color" Couleur : > A pour couleur
 Joueur *--> "1 color" Roi : > A pour roi
 Echec *--> "-64" Piece : > A besoin
 Echec *--> "2" Joueur : > A besoin
