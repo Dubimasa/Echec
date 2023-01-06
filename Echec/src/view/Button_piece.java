@@ -36,7 +36,7 @@ public class Button_piece extends JButton {
     }
     private void placeImage(Couleur couleur)
     {
-        String cheminImage = "images/";
+        String cheminImage = "/";
         if(name ==null)
         {
             cheminImage = cheminImage + "Rien.png";
@@ -47,7 +47,8 @@ public class Button_piece extends JButton {
             cheminImage = cheminImage + name.substring(6) +couleur.toString() + ".png";
         }
         //System.out.println(cheminImage);
-        Icon icon = new ImageIcon(cheminImage);
+        //Icon icon = new ImageIcon(cheminImage);
+        Icon icon = new ImageIcon(getClass().getResource(cheminImage));
         setIcon(icon);
     }
     public String recupName()
