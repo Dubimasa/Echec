@@ -24,6 +24,7 @@ Package model
             +updateMouvementPossible()
             +updateMouvement()
             +updateEchec()
+            +updateScore(score : Integer, couleur : Couleur);
     }
 
     class Echec {
@@ -34,6 +35,7 @@ Package model
     -playerWhite : Joueur
     -playerBlack : Joueur
     -NomPieceProm : String
+    -updateScore(score : Integer)
     +Echec(initPlayer1 Joueur, initPlayer2 Joueur)
     +updateEchec(roix Integer, roiy Integer, attaquantx Integer, attaquanty Integer)
     +getEchecquier() : Piece[][]
@@ -68,7 +70,11 @@ Package model
     }
     abstract class Piece
     {
+        -color : Couleur
+        -switch_color : Integer
+        -score : Integer
         +Piece(color1 Couleur)
+        +getScore() : Integer
         +abstract calculmouvementPossible(echec Echec) : Map<Integer, Integer[]>
         +searchPieceDifferentColorOrNull(echequier Piece[][], search_x Integer, search_y Integer) : boolean
         +getColor()
@@ -124,14 +130,16 @@ Package model
      -score : Integer
      -color : Couleur
      -roi : Piece
-     +Joueur()
+     +Joueur(color1 : Couleur)
      +setNom(init_nom : String)
      +getNom() : String
-     +setScore()
+     +setScore(score1 : Integer)
      +setColor(color Couleur)
-     +addtoScore(value Integer)
+     +addScore(score1 : Integer)
+     +addtoScore(value : Integer)
      +getScore() : Integer
      +getRoi() : Piece
+     +getColor() : Couleur
      +setRoi(roi : Piece)
     }
 }
@@ -145,13 +153,15 @@ Package view{
      -FichePromotion : JPanel
      -FicheStart : JPanel
      -FicheEnd : JPanel
+     -scoreBlack : JLabel
+     -scoreWhite : JLabel
+     -joueurWhite : Joueur
+     -joueurBlack : Joueur
      -facade : Facade
      -decisionPion : boolean
-     +EchecWindow()
+     +EchecWindow(facade1 : Facade, joueur1 : Joueur , joueur2 : Joueur)
      +CreationPannelPromotion()
-     +Avant_Partie(facade0 Facade)
      +Apres_Partie(facade2 Facade)
-     +AfficherEchequier()
      +backgroundEchequierBlackWhite()
      +cleanBord()
      +updateMouvementPossible(mouvementPossible : Boolean[][])
@@ -159,7 +169,13 @@ Package view{
      +updateEchec(roix Integer, roiy Integer, attaquantx Integer, attaquanty Integer)
      +updateEchecMath(couleur Couleur)
      +updatePromotionPion(x Integer, y Integer)
+     +updateScore(score : Integer, couleur : Couleur)
      +boutonPromotion(name : String)) : Button_piece
+     +startFicheStart()
+     +startEchec(white : Joueur, black : Joueur)
+     +creationFicheStart()
+     +creationEchec(white : Joueur, black : Joueur)
+     -createJoueur(joueur : Joueur)
     }
 
     class Button_piece
@@ -167,10 +183,13 @@ Package view{
         -x : Integer
         -y : Integer
         -name : String
-        +Button_piece(x1 : Integer, y1 : Integer ,  name1 : String)
+        +Button_piece(x1 : Integer, y1 : Integer)
+        +Button_piece(name1 : String, couleur : Couleur)
         +recupX() : Integer
         +recupY() : Integer
         +recupName() : String
+        +metName(name1 : String, couleur : Couleur)
+        +placeImage(couleur : Couleur)
     }
 
 }
