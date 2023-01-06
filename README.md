@@ -10,7 +10,7 @@ Mode d'emploi
 
 ### Installation
 - Assurez-vous que vous avez Java sur votre ordinateur, sinon, vous pouvez [le télécharger ici](https://www.java.com/fr/).
-- [Téléchargez Chess.jar](https://git.unistra.fr/a313/a31-chessgame/chess.jar)
+- Téléchargez [Chess.jar](https://git.unistra.fr/noel-sanzovo/a31-chessgame/-/blob/master/Echec.jar)
 
 ### Exécution
 - Entrez la commande suivante dans un terminal :
