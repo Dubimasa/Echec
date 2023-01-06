@@ -36,7 +36,7 @@ public class Button_piece extends JButton {
     }
     private void placeImage(Couleur couleur)
     {
-        String cheminImage = "Echec/images/";
+        String cheminImage = "images/";
         if(name ==null)
         {
             cheminImage = cheminImage + "Rien.png";
